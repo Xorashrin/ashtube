@@ -27,6 +27,12 @@ jobs:
       - name: Grant Execute Permission to Gradle Wrapper
         run: chmod +x gradlew
 
+      - name: Sync Web Assets to Android Assets
+        run: |
+          mkdir -p app/src/main/assets/assets
+          cp index.html style.css app.js manifest.json catalog.json livetv_channels.json app/src/main/assets/
+          cp -r assets/* app/src/main/assets/assets/
+
       - name: Build Android Release & Debug APK
         run: |
           ./gradlew assembleRelease assembleDebug --stacktrace
@@ -35,10 +41,10 @@ jobs:
         run: |
           mkdir -p release-apks
           if [ -f app/build/outputs/apk/release/app-release.apk ]; then
-            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v1.0.0-release.apk
+            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v1.1.0-release.apk
           fi
           if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v1.0.0-debug.apk
+            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v1.1.0-debug.apk
           fi
           echo "=== Generated APK Files & Sizes ==="
           ls -lh release-apks/

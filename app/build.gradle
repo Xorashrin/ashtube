@@ -49,19 +49,3 @@ dependencies {
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.webkit:webkit:1.10.0'
 }
-
-// Automatically sync web assets into Android app assets directory before build
-task syncWebAssets(type: Copy) {
-    from("${project.rootDir}") {
-        include 'index.html'
-        include 'style.css'
-        include 'app.js'
-        include 'manifest.json'
-        include 'catalog.json'
-        include 'livetv_channels.json'
-        include 'assets/**'
-    }
-    into "${project.projectDir}/src/main/assets"
-}
-
-preBuild.dependsOn syncWebAssets
