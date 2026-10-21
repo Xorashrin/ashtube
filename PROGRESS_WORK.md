@@ -69,3 +69,13 @@
 * **Hls.js Low-Latency Video Player Integration**:
   - Integrated `hls.js` CDN library in `index.html` head for `.m3u8` live stream playback on all modern mobile and desktop browsers.
   - Enhanced `launchVideoPlayer` in `app.js` with automatic HLS detection, low-latency mode configuration, fatal error fallback, and instance teardown on exit.
+
+
+---
+
+## 5. Work Log (Phase 7: Real Source Engine, 2026-10-22)
+* **`source_engine.py`**: Discovery FTP (BDIX) crawler with Range-verified files, Cinemeta metadata/search/episodes, Consumet and aniwatch-api clients (opt-in via `CONSUMET_URL` / `ANIWATCH_URL`), Mrgify live TV playlist with stream health filtering.
+* **Resolvers** (`movie`, `anime`, `kdrama`, `bangla_dubbed`, `bdix_searcher`) now delegate to the engine; all hard-coded test-stream data was removed.
+* **`server.py`**: threaded server, `/api/stream/resolve` (id, category, title, year, season, episode), Cinemeta results in `/api/search`, `/api/media/cm-<imdb>`, `/api/proxy` (CORS + HLS playlist rewriting for issued URLs only), `/api/providers/status`, Range-capable file serving.
+* **`downloader_engine.py`**: keeps the real file extension, sanitizes names, requires a 206 Range probe for segmented mode, and fails (instead of assembling a corrupt file) when a chunk is missing.
+* **Frontend**: Play/Download resolve real sources, download picker modal, real quality switching, Live TV through the proxy, configurable backend address for the APK, mock data removed.

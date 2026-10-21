@@ -12,30 +12,8 @@
     "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
     "synopsis": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family, facing a choice between the love of his life and the fate of the known universe.",
     "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed (HQ)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "movie-interstellar",
@@ -50,30 +28,8 @@
     "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
     "synopsis": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
     "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed (Studio)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "movie-oppenheimer",
@@ -88,30 +44,8 @@
     "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
     "synopsis": "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.",
     "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "movie-spiderman-spiderverse",
@@ -126,30 +60,8 @@
     "poster": "https://images.unsplash.com/photo-1604200213928-ba3cf4fc8436?auto=format&fit=crop&w=400&q=80",
     "synopsis": "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash, Miles must redefine what it means to be a hero.",
     "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "movie-the-batman",
@@ -164,30 +76,8 @@
     "poster": "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=80",
     "synopsis": "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
     "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "movie-avatar-water",
@@ -202,30 +92,8 @@
     "poster": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
     "synopsis": "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race.",
     "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "series-shogun",
@@ -240,29 +108,8 @@
     "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
     "synopsis": "When a mysterious European ship is found marooned in a nearby fishing village, Lord Yoshii Toranaga discovers secrets that could tip the scales of power and devastate his formidable enemies in feudal Japan.",
     "isBDIX": true,
-    "audioTracks": [
-      "Japanese / English 5.1",
-      "Bengali Dubbed"
-    ],
+    "audioTracks": [],
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -271,27 +118,23 @@
             "epNum": 1,
             "title": "Chapter One: Anjin",
             "runtime": "69 min",
-            "thumb": "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "Chapter Two: Servants of Two Masters",
             "runtime": "58 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 3,
             "title": "Chapter Three: Tomorrow Is Tomorrow",
             "runtime": "57 min",
-            "thumb": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
-    ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    ]
   },
   {
     "id": "series-last-of-us",
@@ -306,29 +149,8 @@
     "poster": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80",
     "synopsis": "After a global pandemic destroys civilization, a hardened survivor takes charge of a 14-year-old girl who may be humanity's last hope.",
     "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
+    "audioTracks": [],
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -337,20 +159,17 @@
             "epNum": 1,
             "title": "When You're Lost in the Darkness",
             "runtime": "81 min",
-            "thumb": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "Infected",
             "runtime": "53 min",
-            "thumb": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+    ]
   },
   {
     "id": "series-stranger-things",
@@ -365,29 +184,8 @@
     "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
     "synopsis": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
     "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
+    "audioTracks": [],
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -396,20 +194,17 @@
             "epNum": 1,
             "title": "Chapter One: The Vanishing of Will Byers",
             "runtime": "48 min",
-            "thumb": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "Chapter Two: The Weirdo on Maple Street",
             "runtime": "55 min",
-            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    ]
   },
   {
     "id": "series-breaking-bad",
@@ -424,29 +219,8 @@
     "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
     "synopsis": "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family's future.",
     "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed (Studio)"
-    ],
+    "audioTracks": [],
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -455,20 +229,17 @@
             "epNum": 1,
             "title": "Pilot",
             "runtime": "58 min",
-            "thumb": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "Cat's in the Bag...",
             "runtime": "48 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
-    ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    ]
   },
   {
     "id": "anime-solo-leveling",
@@ -484,24 +255,6 @@
     "synopsis": "In a world where hunters must battle deadly monsters to protect mankind, Sung Jinwoo, the weakest hunter of all mankind, finds himself in an endless quest to level up.",
     "subDub": "Sub / Dub",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -510,27 +263,24 @@
             "epNum": 1,
             "title": "I'm Used to It",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "If I Had One More Chance",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 3,
             "title": "Like a Daily Quest",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    "audioTracks": []
   },
   {
     "id": "anime-jujutsu-kaisen",
@@ -546,24 +296,6 @@
     "synopsis": "A boy swallows a cursed talisman and becomes cursed himself. He enters a shaman's school to locate the demon's remaining body parts and exorcise himself.",
     "subDub": "Sub / Dub",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -572,20 +304,18 @@
             "epNum": 1,
             "title": "Ryomen Sukuna",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "For Myself",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+    "audioTracks": []
   },
   {
     "id": "anime-attack-on-titan",
@@ -601,24 +331,6 @@
     "synopsis": "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.",
     "subDub": "Japanese / English Dub",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -627,20 +339,18 @@
             "epNum": 1,
             "title": "To You, in 2000 Years: The Fall of Shiganshina",
             "runtime": "25 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "That Day: The Fall of Shiganshina Part 2",
             "runtime": "25 min",
-            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    "audioTracks": []
   },
   {
     "id": "anime-demon-slayer",
@@ -656,24 +366,6 @@
     "synopsis": "A youth begins a quest to fight demons and turn his sister human again after his family is slaughtered and his sister turned into a demon.",
     "subDub": "Sub / Dub",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -682,13 +374,12 @@
             "epNum": 1,
             "title": "Cruelty",
             "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    "audioTracks": []
   },
   {
     "id": "kdrama-queen-of-tears",
@@ -703,24 +394,6 @@
     "poster": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
     "synopsis": "The queen of department stores and her small-town husband weather a marital crisis—until love miraculously begins to bloom again.",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -729,20 +402,18 @@
             "epNum": 1,
             "title": "Episode 1: The Queens Group",
             "runtime": "78 min",
-            "thumb": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80"
           },
           {
             "epNum": 2,
             "title": "Episode 2: A Change of Heart",
             "runtime": "75 min",
-            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    "audioTracks": []
   },
   {
     "id": "kdrama-business-proposal",
@@ -757,24 +428,6 @@
     "poster": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     "synopsis": "In disguise as her friend, Ha-ri shows up on a blind date to scare away her friend's suitor. But plans go awry when he turns out to be her CEO.",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -783,13 +436,12 @@
             "epNum": 1,
             "title": "Episode 1: The Blind Date",
             "runtime": "60 min",
-            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+    "audioTracks": []
   },
   {
     "id": "kdrama-crash-landing",
@@ -804,24 +456,6 @@
     "poster": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
     "synopsis": "A paragliding mishap drops a South Korean heiress into North Korea—and into the life of an army officer who decides he will help her hide.",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -830,13 +464,12 @@
             "epNum": 1,
             "title": "The Whirlwind",
             "runtime": "70 min",
-            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    "audioTracks": []
   },
   {
     "id": "kdrama-squid-game",
@@ -851,24 +484,6 @@
     "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
     "synopsis": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting 45.6 billion won prize awaits with deadly high stakes.",
     "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
     "seasons": [
       {
         "seasonNumber": 1,
@@ -877,13 +492,12 @@
             "epNum": 1,
             "title": "Red Light, Green Light",
             "runtime": "60 min",
-            "thumb": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+            "thumb": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
           }
         ]
       }
     ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    "audioTracks": []
   },
   {
     "id": "bangla-kgf-2",
@@ -898,30 +512,8 @@
     "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
     "synopsis": "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order.",
     "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (Studio HQ)",
-      "Hindi 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "bangla-hawa",
@@ -936,29 +528,8 @@
     "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
     "synopsis": "A group of fishermen in the deep Bay of Bengal catch a mysterious young woman in their fishing net, bringing chaos, desire, and doom upon their trawler.",
     "isBDIX": true,
-    "audioTracks": [
-      "Native Bengali 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "bangla-pushpa",
@@ -973,30 +544,8 @@
     "poster": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80",
     "synopsis": "A laborer rises through the ranks of a red sandalwood smuggling syndicate, making powerful enemies along the way in Seshachalam forests.",
     "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (HQ)",
-      "Telugu 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "bangla-toofan",
@@ -1011,29 +560,8 @@
     "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
     "synopsis": "The rise and reign of a notorious 90s underworld kingpin in Dhaka who commands respect, fear, and ultimate loyalty amidst gangland betrayals.",
     "isBDIX": true,
-    "audioTracks": [
-      "Original Bengali (Dolby Digital)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   },
   {
     "id": "bangla-rrr",
@@ -1048,29 +576,7 @@
     "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
     "synopsis": "A fearless revolutionary and an officer in the British force, who once were great friends, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.",
     "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (Studio)",
-      "Telugu 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+    "audioTracks": [],
+    "isSeries": false
   }
 ]

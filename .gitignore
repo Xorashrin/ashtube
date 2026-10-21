@@ -24,6 +24,12 @@ downloads/
 *.webm
 *.mkv
 
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
 # OS artifacts
 .DS_Store
 Thumbs.db

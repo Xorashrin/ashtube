@@ -12,7 +12,9 @@ import os
 import sys
 import time
 import math
+import re
 import urllib.request
+import urllib.parse
 import urllib.error
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
@@ -63,7 +65,7 @@ class DownloadTask:
 class MultiThreadDownloader:
     """High-speed segmented multi-threaded download manager."""
 
-    def __init__(self, download_dir: str = "/home/ASHRIN/Desktop/MythFlix/downloads", default_threads: int = 8):
+    def __init__(self, download_dir: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "downloads"), default_threads: int = 8):
         self.download_dir = download_dir
         self.default_threads = default_threads
         os.makedirs(self.download_dir, exist_ok=True)
@@ -72,7 +74,12 @@ class MultiThreadDownloader:
 
     def start_download(self, url: str, title: str, filename: Optional[str] = None, num_threads: Optional[int] = None) -> DownloadTask:
         threads = num_threads or self.default_threads
-        safe_name = filename or f"{title.lower().replace(' ', '_').replace(':', '')}.mp4"
+        if not filename:
+            ext = os.path.splitext(urllib.parse.urlparse(url).path)[1].lower()
+            ext = ext if ext in (".mkv", ".mp4", ".webm", ".avi", ".ts") else ".mp4"
+            stem = re.sub(r"[^\w()\-]+", "_", title, flags=re.UNICODE).strip("_.") or "video"
+            filename = f"{stem[:120]}{ext}"
+        safe_name = os.path.basename(filename)
         dest_path = os.path.join(self.download_dir, safe_name)
         task_id = f"dl_{int(time.time() * 1000)}"
 
@@ -133,40 +140,21 @@ class MultiThreadDownloader:
                 print(f"[Downloader Error] Task {task.task_id} failed: {e}")
 
     def _probe_file_size(self, url: str) -> int:
-        """Determines total size using HEAD, falling back to Range: bytes=0-0."""
-        # Try HEAD
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) AshTube/1.0"})
-            req.get_method = lambda: "HEAD"
-            with urllib.request.urlopen(req, timeout=8) as resp:
-                cl = resp.headers.get("Content-Length")
-                if cl:
-                    return int(cl)
-        except Exception:
-            pass
-
-        # Try GET Range: bytes=0-0
+        """Returns the total size only when the server honours Range (206), else 0 (single stream)."""
         try:
             req = urllib.request.Request(
                 url,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (Linux; Android 14) AshTube/1.0",
-                    "Range": "bytes=0-0"
-                }
+                headers={"User-Agent": "Mozilla/5.0 (Linux; Android 14) AshTube/1.0", "Range": "bytes=0-0"}
             )
-            with urllib.request.urlopen(req, timeout=8) as resp:
+            with urllib.request.urlopen(req, timeout=10) as resp:
                 crange = resp.headers.get("Content-Range", "")
-                if "/" in crange:
+                if resp.status == 206 and "/" in crange:
                     total_part = crange.split("/")[-1].strip()
                     if total_part.isdigit():
                         return int(total_part)
-                cl = resp.headers.get("Content-Length")
-                if cl:
-                    return int(cl)
         except Exception:
             pass
-
-        return 20 * 1024 * 1024 # 20MB fallback
+        return 0
 
     def _multi_thread_download(self, task: DownloadTask):
         chunk_size = math.ceil(task.total_size / task.num_threads)
@@ -205,14 +193,18 @@ class MultiThreadDownloader:
                     last_bytes = current_bytes
                     last_time = now
 
+            chunk_errors = []
             for f in as_completed(futures):
                 try:
                     f.result()
                 except Exception as ce:
+                    chunk_errors.append(str(ce))
                     print(f"[Chunk Error] {ce}")
 
-        # 3. Assemble chunks into the final media file
+        # 3. Assemble chunks into the final media file (only when every byte arrived)
         if not task.is_paused and not task.is_cancelled:
+            if self._calculate_downloaded(task) != task.total_size:
+                raise RuntimeError(f"Incomplete download ({'; '.join(chunk_errors) or 'connection dropped'}). Resume to retry.")
             self._assemble_chunks(task)
 
     def _download_chunk(self, task: DownloadTask, index: int, start: int, end: int, chunk_path: str):

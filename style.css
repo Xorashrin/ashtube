@@ -2305,3 +2305,44 @@ input:checked + .slider:before {
   box-shadow: 0 12px 30px rgba(255, 51, 102, 0.65);
 }
 
+
+
+/* Backend server address row (BDIX card) */
+.backend-url-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.backend-url-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-size: 12px;
+}
+
+/* Download source picker */
+.dl-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+}
+.dl-option.selected {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 1px var(--border-glow) inset;
+}
+.dl-option-q { font-weight: 700; font-size: 15px; }
+.dl-option-meta { font-size: 11px; color: var(--text-muted); }
+#qualityOptionsContainer { display: flex; flex-direction: column; gap: 10px; padding: 4px 0 12px; overflow-y: auto; }

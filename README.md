@@ -75,6 +75,25 @@ python3 server.py
 
 Open your browser and navigate to `http://localhost:8000`.
 
+### Media sources (`source_engine.py`)
+
+| Source | Used for | Status |
+| :--- | :--- | :--- |
+| Discovery FTP (BDIX, h5ai index) | Movies, series, anime, K-drama, Bangla/South Indian files (direct MKV/MP4, HTTP Range) | Live |
+| Stremio Cinemeta | Search beyond the built-in catalog, IMDb ids, real episode lists | Live |
+| Mrgify BDIX IPTV playlist | Live Bangla TV (dead streams filtered out) | Live |
+| Consumet (FlixHQ / DramaCool / Gogoanime) | HLS streams | Needs `CONSUMET_URL` (public instance is offline) |
+| aniwatch-api (HiAnime) | Anime HLS, sub and dub | Needs `ANIWATCH_URL` |
+
+```bash
+# optional: self-host the HLS providers, then start AshTube with their addresses
+docker run -d -p 3000:3000 riimuru/consumet-api
+CONSUMET_URL=http://localhost:3000 python3 server.py
+```
+
+If no source hosts a title, the app says so instead of playing a placeholder. In the APK, enter the
+server address (for example `http://192.168.0.10:8000`) in the box under the BDIX card on the Live TV tab.
+
 ---
 
 ## 📄 License & Credits

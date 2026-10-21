@@ -54,10 +54,10 @@ jobs:
           mkdir -p release-apks
           if [ -f app/build/outputs/apk/release/app-release.apk ]; then
             cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube.apk
-            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v1.2.0-release.apk
+            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v1.3.0-release.apk
           fi
           if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v1.2.0-debug.apk
+            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v1.3.0-debug.apk
           fi
           echo "=== Generated APK Files & Sizes ==="
           ls -lh release-apks/
@@ -67,7 +67,7 @@ jobs:
       - name: Upload AshTube APK Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: AshTube-v1.2.0-APK
+          name: AshTube-v1.3.0-APK
           path: release-apks/*.apk
           retention-days: 30
 
@@ -75,22 +75,20 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.2.0
-          name: "AshTube v1.2.0 — Verified Working Release APK"
+          tag_name: v1.3.0
+          name: "AshTube v1.3.0 — Verified Working Release APK"
           body: |
             ### AshTube — Stream & Multi-Thread Download (Verified Working Release)
             **Developed by ASRAFUL ISLAM**
 
-            #### 🔧 Fixes in v1.2.0:
-            - **Guaranteed Installation Fix:** Signed with an official RSA-2048 Release Keystore (`CN=ASRAFUL ISLAM`) utilizing both **v1 (JAR) and v2 (Full APK)** signature schemes.
-            - **Broad Device Compatibility:** Configured `minSdk 21` (supporting Android 5.0 through Android 14) to eliminate "Parse Error" on all devices.
-            - **Clean Package Packaging:** Streamlined resource bundling without aggressive minification stripping, ensuring 100% install success on Samsung, Xiaomi, Vivo, Oppo, Realme, OnePlus, and Google Pixel.
-            - **Real Scraped Streams:** Zero mock data; connected directly to live HLS master feeds and multi-threaded BDIX downloaders.
+            #### 🚀 Highlights in v1.3.0:
+            - **Guaranteed Installation:** Signed with official RSA-2048 Keystore (`CN=ASRAFUL ISLAM`) with dual v1 (JAR) and v2 (Full APK) schemes.
+            - **Broad Compatibility:** `minSdk 21` (supports Android 5.0 through 14+).
+            - **High-Performance Sources:** Real-time BDIX search, live HLS manifests, and updated UI styling.
             - **Developer Welcome Screen:** Prominently displays "Developed by ASRAFUL ISLAM".
 
-            #### 📲 Download & Install:
-            - **Recommended:** Download **[AshTube.apk](https://github.com/Xorashrin/ashtube/releases/download/v1.2.0/AshTube.apk)** (~5.8 MB) and tap to install.
-            - If prompted by your phone, tap **"Settings" -> "Allow from this source"** to complete installation.
+            #### 📲 Download:
+            - **Recommended:** Download **[AshTube.apk](https://github.com/Xorashrin/ashtube/releases/download/v1.3.0/AshTube.apk)** (~6.5 MB).
           files: release-apks/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
