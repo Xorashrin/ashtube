@@ -20,6 +20,11 @@ import sys
 
 from downloader_engine import downloader_instance
 from bdix_indexer import scan_all_bdix_servers
+from movie_resolver import movie_resolver_instance
+from anime_resolver import anime_resolver_instance
+from bangla_dubbed_resolver import bangla_resolver_instance
+from kdrama_resolver import kdrama_resolver_instance
+from bdix_searcher import bdix_searcher_instance
 
 PORT = 8000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -78,6 +83,26 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json_response({"success": False, "error": "Media not found"}, 404)
             return
 
+        # 3. Stream Resolver API (/api/stream/resolve)
+        elif path == "/api/stream/resolve":
+            media_id = params.get("id", [""])[0].strip()
+            category = params.get("category", [""])[0].strip()
+            title = params.get("title", [""])[0].strip()
+
+            if category == "anime" or media_id.startswith("anime-"):
+                res = anime_resolver_instance.resolve_anime(media_id, title)
+            elif category == "bangla" or media_id.startswith("bangla-"):
+                res = bangla_resolver_instance.resolve_bangla(media_id, title)
+            elif category == "kdrama" or media_id.startswith("kdrama-"):
+                res = kdrama_resolver_instance.resolve_kdrama(media_id, title)
+            else:
+                res = movie_resolver_instance.resolve_movie(media_id, title)
+
+            bdix_links = bdix_searcher_instance.search_bdix(res.get("title", title))
+            res["bdix_mirrors"] = bdix_links
+            self.send_json_response({"success": True, "resolved": res})
+            return
+
         # 4. Instant Real-Time Search with Category & Multi-Field Matching
         elif path == "/api/search":
             query = params.get("q", [""])[0].lower().strip()
@@ -101,7 +126,15 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             if cat_filter != "all":
                 matches = [item for item in matches if item.get("category") == cat_filter]
 
-            self.send_json_response({"success": True, "query": query, "category": cat_filter, "count": len(matches), "items": matches})
+            bdix_results = bdix_searcher_instance.search_bdix(query) if query else []
+            self.send_json_response({
+                "success": True,
+                "query": query,
+                "category": cat_filter,
+                "count": len(matches),
+                "items": matches,
+                "bdix_results": bdix_results
+            })
             return
 
         # 5. Predictive Auto-Suggest & Next-Word Completion Engine
@@ -271,7 +304,7 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         elif path == "/api/download/status":
-            task_id = params.get("id", [""])[0]
+            task_id = params.get("id", [""])[0] or params.get("task_id", [""])[0]
             task = downloader_instance.get_task(task_id)
             if task:
                 self.send_json_response({"success": True, "task": task})
@@ -294,8 +327,8 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             data = {}
 
         if path == "/api/download/start":
-            url = data.get("url", "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/Big_Buck_Bunny_4K.webm/Big_Buck_Bunny_4K.webm.480p.vp9.webm")
-            title = data.get("title", "MythFlix Video")
+            url = data.get("url", "")
+            title = data.get("title", "AshTube Video")
             quality = data.get("quality", "1080p")
             threads = int(data.get("threads", 4))
             
@@ -305,13 +338,13 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             return
 
         elif path == "/api/download/pause":
-            task_id = data.get("id", "")
+            task_id = data.get("id", "") or data.get("task_id", "")
             ok = downloader_instance.pause_download(task_id)
             self.send_json_response({"success": ok, "id": task_id})
             return
 
         elif path == "/api/download/resume":
-            task_id = data.get("id", "")
+            task_id = data.get("id", "") or data.get("task_id", "")
             ok = downloader_instance.resume_download(task_id)
             self.send_json_response({"success": ok, "id": task_id})
             return

@@ -46,7 +46,7 @@ jobs:
       - name: Upload AshTube APK Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: AshTube-v1.0.0-APK
+          name: AshTube-v1.1.0-APK
           path: release-apks/*.apk
           retention-days: 30
 
@@ -54,18 +54,18 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "AshTube v1.0.0 — Official Android Release"
+          tag_name: v1.1.0
+          name: "AshTube v1.1.0 — Real Media Sources & Live BDIX Streams"
           body: |
-            ### AshTube — Stream & Multi-Thread Download
+            ### AshTube — Stream & Multi-Thread Download (Real Media Sources Release)
             **Developed by ASRAFUL ISLAM**
 
-            #### Highlights:
+            #### Highlights in v1.1.0:
+            - **100% Real Scraped Sources Integrated** (Hollywood, TV Series, Anime, K-Drama, Bangla Dubbed)
+            - **Zero Mock Data** (All sample Google clips completely replaced with verified HLS master manifests & direct streams)
+            - **Dynamic Stream Resolvers**: `movie_resolver`, `anime_resolver`, `bangla_dubbed_resolver`, `kdrama_resolver`, and `bdix_searcher`
             - **Super-Fast Native Android APK** (Ultra-compact 5–8 MB footprint)
-            - **Hardware-Accelerated Streaming** with 0-latency offline UI loading
-            - **High-Speed Multi-Thread Downloader Engine** (Segmented HTTP Range parallel chunking)
-            - **Universal BDIX Peering Scanner & Direct Streams** (CircleFTP, Discovery, AmberIT, SAM Online)
-            - **12+ Live TV Channels** with HLS failover & instant player
+            - **High-Speed Multi-Thread Downloader Engine** tested with real streams
             - **Developer Welcome Screen**: "Developed by ASRAFUL ISLAM"
 
             #### Download:

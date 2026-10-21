@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
       synopsis: 'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family, facing a choice between the love of his life and the fate of the known universe.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      videoUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       isBDIX: true,
       audioTracks: ['English 5.1', 'Bengali Dubbed'],
       isSeries: false
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80',
       synopsis: 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+      videoUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
       isBDIX: true,
       audioTracks: ['English (Original)', 'Bengali Dubbed (HQ)'],
       isSeries: false
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
       synopsis: 'As Alfred the Great defends his kingdom from Norse invaders, Uhtred—born a Saxon but raised by Vikings—seeks to claim his ancestral birthright.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+      videoUrl: 'https://test-streams.mux.dev/pts_banner/manifest.m3u8',
       isBDIX: true,
       isSeries: true,
       seasons: [
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
       synopsis: 'In a world where hunters must battle deadly monsters to protect mankind, Sung Jinwoo, the weakest hunter of all mankind, finds himself in an endless quest to level up.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+      videoUrl: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8',
       subDub: 'Sub / Dub',
       isSeries: true,
       seasons: [
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80',
       synopsis: 'A boy swallows a cursed talisman and becomes cursed himself. He enters a shaman\'s school to be able to locate the demon\'s other body parts and exorcise himself.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      videoUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       subDub: 'Sub / Dub',
       isSeries: true,
       seasons: [
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80',
       synopsis: 'The queen of department stores and her small-town husband weather a marital crisis—until love miraculously begins to bloom again.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      videoUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
       isSeries: true,
       seasons: [
         {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
       poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
       synopsis: 'In the blood-soaked Kolar Gold Fields, Rocky\'s name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order.',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+      videoUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
       isBDIX: true,
       audioTracks: ['Bengali Dubbed (Studio HQ)', 'Hindi 5.1'],
       isSeries: false
@@ -197,18 +197,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Live TV Channels Data (Dynamic with fallback)
   let LIVE_CHANNELS = [
-    { id: 'somoy', name: 'Somoy TV', category: 'news', program: 'Evening News: 7 PM Bulletin', latency: '12ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', resolution: '1080p 50fps', badge: 'NEWS' },
-    { id: 'jamuna', name: 'Jamuna TV', category: 'news', program: 'Sangbad 24 Live Special', latency: '14ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', resolution: '1080p 50fps', badge: 'NEWS' },
-    { id: 'channel-24', name: 'Channel 24', category: 'news', program: 'Desh 24 Prime Analysis', latency: '15ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', resolution: '1080p HD', badge: 'NEWS' },
-    { id: 'ekattor', name: 'Ekattor TV', category: 'news', program: 'Ekattor Journal Live', latency: '16ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4', resolution: '720p HD', badge: 'NEWS' },
-    { id: 'tsports', name: 'T Sports HD', category: 'sports', program: 'Live Cricket & Football Match', latency: '11ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', resolution: '1080p 60fps', badge: 'SPORTS' },
-    { id: 'starsports', name: 'Star Sports 1', category: 'sports', program: 'Premier League Matchday Live', latency: '13ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4', resolution: '1080p 60fps', badge: 'SPORTS' },
-    { id: 'gtv', name: 'GTV Sports', category: 'sports', program: 'Bangladesh Cricket Highlights', latency: '14ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', resolution: '1080p HD', badge: 'SPORTS' },
-    { id: 'channel-i', name: 'Channel i', category: 'entertainment', program: 'Dine-In Bangla & Music Fest', latency: '15ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', resolution: '1080p HD', badge: 'BANGLA' },
-    { id: 'ntv', name: 'NTV Bangla', category: 'entertainment', program: 'Prime Natok Drama Fest', latency: '16ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', resolution: '1080p HD', badge: 'BANGLA' },
-    { id: 'deepto', name: 'Deepto TV', category: 'entertainment', program: 'Sultan Suleiman Dubbed Special', latency: '15ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', resolution: '1080p HD', badge: 'DUBBED' },
-    { id: 'btv', name: 'BTV National', category: 'entertainment', program: 'Heritage of Bangladesh Live', latency: '12ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', resolution: '1080p HD', badge: 'NATIONAL' },
-    { id: 'duronto', name: 'Duronto TV', category: 'kids', program: 'Rong Beronger Golpo & Cartoons', latency: '14ms', isHls: true, streamUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', resolution: '1080p HD', badge: 'KIDS' }
+    { id: 'somoy', name: 'Somoy TV', category: 'news', program: 'Evening News: 7 PM Bulletin', latency: '12ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', resolution: '1080p 50fps', badge: 'NEWS' },
+    { id: 'jamuna', name: 'Jamuna TV', category: 'news', program: 'Sangbad 24 Live Special', latency: '14ms', isHls: true, streamUrl: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8', resolution: '1080p 50fps', badge: 'NEWS' },
+    { id: 'channel-24', name: 'Channel 24', category: 'news', program: 'Desh 24 Prime Analysis', latency: '15ms', isHls: true, streamUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', resolution: '1080p HD', badge: 'NEWS' },
+    { id: 'ekattor', name: 'Ekattor TV', category: 'news', program: 'Ekattor Journal Live', latency: '16ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/pts_banner/manifest.m3u8', resolution: '720p HD', badge: 'NEWS' },
+    { id: 'tsports', name: 'T Sports HD', category: 'sports', program: 'Live Cricket & Football Match', latency: '11ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', resolution: '1080p 60fps', badge: 'SPORTS' },
+    { id: 'starsports', name: 'Star Sports 1', category: 'sports', program: 'Premier League Matchday Live', latency: '13ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/pts_banner/manifest.m3u8', resolution: '1080p 60fps', badge: 'SPORTS' },
+    { id: 'gtv', name: 'GTV Sports', category: 'sports', program: 'Bangladesh Cricket Highlights', latency: '14ms', isHls: true, streamUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', resolution: '1080p HD', badge: 'SPORTS' },
+    { id: 'channel-i', name: 'Channel i', category: 'entertainment', program: 'Dine-In Bangla & Music Fest', latency: '15ms', isHls: true, streamUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', resolution: '1080p HD', badge: 'BANGLA' },
+    { id: 'ntv', name: 'NTV Bangla', category: 'entertainment', program: 'Prime Natok Drama Fest', latency: '16ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', resolution: '1080p HD', badge: 'BANGLA' },
+    { id: 'deepto', name: 'Deepto TV', category: 'entertainment', program: 'Sultan Suleiman Dubbed Special', latency: '15ms', isHls: true, streamUrl: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8', resolution: '1080p HD', badge: 'DUBBED' },
+    { id: 'btv', name: 'BTV National', category: 'entertainment', program: 'Heritage of Bangladesh Live', latency: '12ms', isHls: true, streamUrl: 'https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', resolution: '1080p HD', badge: 'NATIONAL' },
+    { id: 'duronto', name: 'Duronto TV', category: 'kids', program: 'Rong Beronger Golpo & Cartoons', latency: '14ms', isHls: true, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8', resolution: '1080p HD', badge: 'KIDS' }
   ];
 
   // ==========================================================================
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const taskObj = tasks.find(t => t.id === id);
           const playUrl = (taskObj && taskObj.filename)
             ? `/api/download/file/${encodeURIComponent(taskObj.filename)}`
-            : ((taskObj && taskObj.destination) ? `/downloads/${encodeURIComponent(taskObj.destination.split('/').pop())}` : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
+            : ((taskObj && taskObj.destination) ? `/downloads/${encodeURIComponent(taskObj.destination.split('/').pop())}` : 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
           launchVideoPlayer({
             title: taskObj ? taskObj.title : 'Offline Playback',
             sub: 'Local Multi-Thread Storage · Zero Buffer',
@@ -1227,14 +1227,14 @@ document.addEventListener('DOMContentLoaded', () => {
     launchVideoPlayer({
       title: 'ASTRIA: STARGAZER',
       sub: '4K HDR · BDIX Ultra-Speed',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      videoUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
     });
   });
 
   document.getElementById('heroDownloadBtn').addEventListener('click', () => {
     triggerMultiThreadDownload({
       title: 'ASTRIA: STARGAZER',
-      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      videoUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'
     });
   });
 
@@ -1268,7 +1268,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hlsInstance.on(Hls.Events.ERROR, (event, errData) => {
         if (errData && errData.fatal) {
           console.warn('HLS stream fatal error, falling back to backup stream');
-          videoPlayer.src = data.backupUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+          videoPlayer.src = data.backupUrl || 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
           videoPlayer.play().catch(() => {});
         }
       });

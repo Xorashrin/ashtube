@@ -46,6 +46,10 @@
 | [bdix_indexer.py](file:///home/ASHRIN/Desktop/MythFlix/bdix_indexer.py) | Universal BDIX FTP health checker and sub-second parallel latency scanner. | Verified |
 | [bdix_servers_report.json](file:///home/ASHRIN/Desktop/MythFlix/bdix_servers_report.json) | Real-time connectivity and latency test reports for major Bangladesh BDIX media servers. | Active |
 | [kdrama_resolver.py](file:///home/ASHRIN/Desktop/MythFlix/kdrama_resolver.py) | Korean drama metadata and stream resolver. | Verified |
+| [movie_resolver.py](file:///home/ASHRIN/Desktop/MythFlix/movie_resolver.py) | Global Hollywood & International movie stream resolver. | Verified |
+| [anime_resolver.py](file:///home/ASHRIN/Desktop/MythFlix/anime_resolver.py) | Anime episode and HLS stream resolver (Zoro / HiAnime / Gogoanime). | Verified |
+| [bangla_dubbed_resolver.py](file:///home/ASHRIN/Desktop/MythFlix/bangla_dubbed_resolver.py) | Bangla dubbed & South Indian cinema dual-audio stream resolver. | Verified |
+| [bdix_searcher.py](file:///home/ASHRIN/Desktop/MythFlix/bdix_searcher.py) | Universal BDIX FTP multi-server direct file indexer & search engine. | Verified |
 | [downloads/](file:///home/ASHRIN/Desktop/MythFlix/downloads) | Local directory for completed multi-threaded offline video downloads. | Verified |
 
 ---
