@@ -1,0 +1,65 @@
+[
+  {
+    "name": "CircleFTP",
+    "provider": "Circle Network",
+    "target_url": "http://circleftp.net",
+    "direct_ip": "http://15.1.1.1",
+    "online": true,
+    "latency_ms": 399.57,
+    "details": "OK"
+  },
+  {
+    "name": "SAM Online FTP",
+    "provider": "SAM Online",
+    "target_url": "https://samftp.com",
+    "direct_ip": "http://172.16.50.4",
+    "online": false,
+    "latency_ms": 390.58,
+    "details": "<urlopen error [Errno 111] Connection refused>"
+  },
+  {
+    "name": "DhakaFTP",
+    "provider": "Amarnet System",
+    "target_url": "http://dhakaftp.com",
+    "direct_ip": "http://103.205.233.70",
+    "online": false,
+    "latency_ms": 1535.65,
+    "details": "Remote end closed connection without response"
+  },
+  {
+    "name": "ICC Communication FTP",
+    "provider": "ICC Communication",
+    "target_url": "http://10.16.100.244",
+    "direct_ip": "http://10.16.100.202",
+    "online": false,
+    "latency_ms": 2072.63,
+    "details": "<urlopen error timed out>"
+  },
+  {
+    "name": "Discovery FTP",
+    "provider": "Discovery Network",
+    "target_url": "http://discoveryftp.net",
+    "direct_ip": "http://10.100.100.100",
+    "online": true,
+    "latency_ms": 373.72,
+    "details": "OK"
+  },
+  {
+    "name": "MojarFTP / Mojaloss",
+    "provider": "Mojaloss Net",
+    "target_url": "http://mojaloss.net",
+    "direct_ip": "http://172.27.27.27",
+    "online": false,
+    "latency_ms": 806.52,
+    "details": "Remote end closed connection without response"
+  },
+  {
+    "name": "AmberIT Media",
+    "provider": "AmberIT",
+    "target_url": "http://amberit.com.bd",
+    "direct_ip": "http://103.230.106.12",
+    "online": true,
+    "latency_ms": 832.26,
+    "details": "OK"
+  }
+]

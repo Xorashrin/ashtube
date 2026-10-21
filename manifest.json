@@ -1,0 +1,24 @@
+{
+  "name": "AshTube — Stream & Download",
+  "short_name": "AshTube",
+  "description": "High-speed BDIX streaming, movies, series, anime, and live TV with mobile gestures and multi-thread downloads.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0d14",
+  "theme_color": "#0a0d14",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

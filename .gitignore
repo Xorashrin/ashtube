@@ -1,0 +1,29 @@
+# Gradle build artifacts
+.gradle/
+build/
+app/build/
+release-apks/
+
+# Keep Gradle Wrapper jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# Python caches & temp
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local environment & properties
+local.properties
+.idea/
+*.iml
+.vscode/
+
+# Media downloads cache
+downloads/
+*.mp4
+*.webm
+*.mkv
+
+# OS artifacts
+.DS_Store
+Thumbs.db

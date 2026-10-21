@@ -1,0 +1,8 @@
+<resources>
+    <color name="primary">#ff3366</color>
+    <color name="primary_variant">#ff0055</color>
+    <color name="secondary">#00f2fe</color>
+    <color name="background">#07090e</color>
+    <color name="surface">#0e121a</color>
+    <color name="status_bar">#05070c</color>
+</resources>
