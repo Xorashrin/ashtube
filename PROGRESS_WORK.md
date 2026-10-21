@@ -79,3 +79,14 @@
 * **`server.py`**: threaded server, `/api/stream/resolve` (id, category, title, year, season, episode), Cinemeta results in `/api/search`, `/api/media/cm-<imdb>`, `/api/proxy` (CORS + HLS playlist rewriting for issued URLs only), `/api/providers/status`, Range-capable file serving.
 * **`downloader_engine.py`**: keeps the real file extension, sanitizes names, requires a 206 Range probe for segmented mode, and fails (instead of assembling a corrupt file) when a chunk is missing.
 * **Frontend**: Play/Download resolve real sources, download picker modal, real quality switching, Live TV through the proxy, configurable backend address for the APK, mock data removed.
+
+---
+
+## 6. Work Log (Phase 8: Index Engine, Feeds, Countdowns, v2.0.0, 2026-10-22)
+* **`bdix_index.py`**: SQLite + FTS5 index of 8 BDIX servers (377k entries). h5ai search dumps (DhakaFlix, auto-split when a server rejects a large dump), h5ai tree listing (Discovery), autoindex BFS crawler (CTGFun, FTP-146). Title/year/season/episode/quality/codec parser. Background refresh every 6 h; each server is replaced atomically.
+* **`source_engine.py`**: strict title+year+episode matching, mirror de-duplication with failover, Range liveness probe, ffprobe duration check, HiAnime provider (ani-cli flow), season-name canonicalization, separate leaf thread pools (no nested-pool deadlocks).
+* **`meta_feeds.py`**: Cinemeta, Kitsu, kisskh and TVMaze feeds, availability flags, home rails, upcoming countdowns, parallel search with a time budget, disk snapshot (`feeds_cache.json`, shipped seed `feeds_seed.json`).
+* **`server.py`**: `/api/home`, `/api/upcoming`, `/api/catalog`, `/api/media/<id>`, `/api/search`, `/api/suggest`, `/api/stream/resolve` (metadata-enriched), `/api/proxy` (CORS, Range, referer, HLS rewrite), `/api/providers/status`.
+* **Frontend**: rails from `/api/home` with live countdown chips, real Continue Watching, download picker, quality switching, direct-to-proxy fallback, first-run server setup.
+* **`coverage_test.py`**: measures real coverage. Movies 94% / series 92% (released up to 2025), anime 97%, K-Drama 67% of the current popular list.
+* **Release**: v2.0.0 built by GitHub Actions.

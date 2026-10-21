@@ -63,6 +63,23 @@ DISCOVERY = [
     ]},
 ]
 
+AUTOINDEX = [
+    {"id": "ctgfun", "name": "CTGFun", "mode": "autoindex", "base": "https://media.ctgfun.com",
+     "roots": [f"/disk{n}/" for n in (1, 2, 3, 4, 5, 6, 7, 8, 9, 11)], "budget": 600},
+    {"id": "ftp146", "name": "FTP-146", "mode": "autoindex", "base": "http://146.196.48.10",
+     "roots": ["/FILE--SERVER/FTP-1/", "/FILE--SERVER/FTP-2/"], "budget": 420},
+]
+
+try:   # optional: add servers reachable from your ISP, e.g. {"id":"x","name":"X FTP","mode":"autoindex","base":"http://host","roots":["/Movies/"]}
+    with open(os.path.join(DIRECTORY, "extra_servers.json"), "r", encoding="utf-8") as _f:
+        AUTOINDEX += [s for s in json.load(_f) if s.get("id") and s.get("base") and s.get("roots")]
+except (OSError, ValueError):
+    pass
+
+_SKIP_DIRS = re.compile(
+    r"game|software|\bpdf\b|tutorial|\bapps?\b|backup|extra|firmware|huawei|e-?books?|music|song|wallpaper|crack|"
+    r"android|windows|office|\bmod\b|trailer|sample|subtitle|\bsubs\b|poster|screens", re.I)
+
 # ------------------------------------------------------------------------ text parsing
 
 _JUNK = re.compile(
@@ -438,9 +455,93 @@ def crawl_tree_server(srv: Dict[str, Any]) -> List[Tuple]:
     return rows
 
 
+_AI_LINE = re.compile(r'<a href="([^"?][^"]*)">[^<]*</a>\s*(?:</td><td[^>]*>)?\s*([0-9]{1,2}-[A-Za-z]{3}-[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2})?\s*([0-9]{1,2}:[0-9]{2})?(?:[^0-9<-]*(?:</td><td[^>]*>)?\s*)?([0-9.]+[KMGT]?|-)?')
+_MONTHS = {m: i + 1 for i, m in enumerate(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
+
+
+def _size_to_bytes(txt: Optional[str]) -> int:
+    if not txt or txt == "-":
+        return 0
+    m = re.fullmatch(r"([0-9.]+)([KMGT]?)", txt)
+    if not m:
+        return 0
+    mult = {"": 1, "K": 1024, "M": 1024 ** 2, "G": 1024 ** 3, "T": 1024 ** 4}[m.group(2)]
+    return int(float(m.group(1)) * mult)
+
+
+def _date_to_epoch(d: Optional[str], t: Optional[str]) -> int:
+    try:
+        if not d:
+            return 0
+        if "-" in d and d[:4].isdigit():
+            y, mo, da = (int(x) for x in d.split("-"))
+        else:
+            da, mon, y = d.split("-")
+            da, y, mo = int(da), int(y), _MONTHS[mon]
+        hh, mm = (int(x) for x in (t or "0:0").split(":"))
+        return int(time.mktime((y, mo, da, hh, mm, 0, 0, 0, -1)))
+    except Exception:
+        return 0
+
+
+def autoindex_list(base: str, href: str, timeout: float = 20) -> List[Tuple[str, bool, int, int]]:
+    """Parses nginx/Apache autoindex HTML -> [(child_href, is_dir, size, mtime)]."""
+    req = urllib.request.Request(base + href, headers={"User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        html = resp.read().decode("utf-8", "replace")
+    out = []
+    from html import unescape
+    for line in html.splitlines():
+        m = _AI_LINE.search(line)
+        if not m:
+            continue
+        child = unescape(m.group(1))
+        if child.startswith(("../", "/", "http", "#", "?")) or child in ("..", "../"):
+            continue
+        is_dir = child.endswith("/")
+        out.append((href + child, is_dir, 0 if is_dir else _size_to_bytes(m.group(4)), _date_to_epoch(m.group(2), m.group(3))))
+    return out
+
+
+def crawl_autoindex_server(srv: Dict[str, Any]) -> List[Tuple]:
+    """BFS over a plain directory index with a time budget; skips software/games/etc."""
+    base = srv["base"]
+    deadline = time.time() + srv.get("budget", 300)
+    rows: List[Tuple] = []
+    lock = threading.Lock()
+    frontier = [(r, 0) for r in srv["roots"]]
+    while frontier and time.time() < deadline:
+        nxt = []
+        with ThreadPoolExecutor(max_workers=24) as pool:
+            futs = {pool.submit(autoindex_list, base, href): (href, d) for href, d in frontier}
+            for f in as_completed(futs):
+                href, d = futs[f]
+                try:
+                    kids = f.result()
+                except Exception:
+                    continue
+                for child, is_dir, size, mtime in kids:
+                    name = urllib.parse.unquote(child.rstrip("/").rsplit("/", 1)[-1])
+                    if is_dir:
+                        if d < 5 and not _SKIP_DIRS.search(name):
+                            nxt.append((child, d + 1))
+                    elif child.lower().endswith(VIDEO_EXT) and size > 20 * 1024 * 1024:
+                        row = _row(srv["id"], "file", base, child, size, mtime, False, srv["roots"][0])
+                        if row:
+                            with lock:
+                                rows.append(row)
+        frontier = nxt
+    return rows
+
+
 def build_server(srv: Dict[str, Any]) -> int:
     started = time.time()
-    rows = crawl_search_server(srv) if srv["mode"] == "search" else crawl_tree_server(srv)
+    if srv["mode"] == "search":
+        rows = crawl_search_server(srv)
+    elif srv["mode"] == "autoindex":
+        rows = crawl_autoindex_server(srv)
+    else:
+        rows = crawl_tree_server(srv)
     if not rows:
         # Never wipe a working index because a server was unreachable during this run.
         set_meta(f"status:{srv['id']}", {"ok": False, "at": int(time.time()), "rows": 0})
@@ -455,7 +556,7 @@ def build_server(srv: Dict[str, Any]) -> int:
 
 
 def all_servers() -> List[Dict[str, Any]]:
-    return DHAKAFLIX + DISCOVERY
+    return DHAKAFLIX + DISCOVERY + AUTOINDEX
 
 
 def build_all(only: Optional[Iterable[str]] = None) -> Dict[str, int]:

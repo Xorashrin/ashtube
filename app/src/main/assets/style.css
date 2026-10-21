@@ -2305,3 +2305,55 @@ input:checked + .slider:before {
   box-shadow: 0 12px 30px rgba(255, 51, 102, 0.65);
 }
 
+
+
+/* Backend server address row (BDIX card) */
+.backend-url-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.backend-url-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-size: 12px;
+}
+
+/* Download source picker */
+.dl-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+}
+.dl-option.selected {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 1px var(--border-glow) inset;
+}
+.dl-option-q { font-weight: 700; font-size: 15px; }
+.dl-option-meta { font-size: 11px; color: var(--text-muted); }
+#qualityOptionsContainer { display: flex; flex-direction: column; gap: 10px; padding: 4px 0 12px; overflow-y: auto; }
+
+
+/* Countdown + availability badges */
+.countdown-chip {
+  position: absolute; left: 6px; bottom: 6px; right: 6px;
+  padding: 3px 6px; border-radius: 8px; text-align: center;
+  font-size: 10px; font-weight: 700; letter-spacing: .02em;
+  background: rgba(7, 8, 13, 0.82); color: var(--accent-cyan);
+  border: 1px solid var(--border-glow); backdrop-filter: blur(6px);
+}
+.poster-badge.soon { background: rgba(255, 179, 0, 0.18); color: var(--accent-gold); border-color: rgba(255, 179, 0, 0.35); }

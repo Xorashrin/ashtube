@@ -3,41 +3,36 @@
 AshTube Source Engine
 Developed by ASRAFUL ISLAM
 
-Real, verified media sources taken from the AshTube research documents:
-  * Discovery FTP (BDIX, h5ai directory index)  -> direct MKV/MP4 files with HTTP Range
-  * Stremio Cinemeta (metadata engine of Stremio / Torrentio) -> IMDb ids, years, episodes
-  * Consumet (FlixHQ / DramaCool / Gogoanime) and aniwatch-api -> HLS streams.
-    The public instances are offline, so they are used only when CONSUMET_URL /
-    ANIWATCH_URL point at a self-hosted instance (docker run -p 3000:3000 riimuru/consumet-api).
-  * Mrgify BDIX IPTV playlist -> live Bangla TV channels
+Resolves a title to real, verified, seekable media:
+  * BDIX index (bdix_index.py): DhakaFlix 7/9/10/12/14, Discovery FTP, CTGFun, FTP-146  -> direct MKV/MP4
+  * HiAnime (ani-cli provider): anime sub/dub as HLS with VTT subtitles
 
-Nothing here fabricates URLs: if a title is not found, the resolver says so.
+A file is only offered when ALL of these hold, so a thumbnail can never open different content:
+  1. normalized title equals the metadata title (or one of its alternates)
+  2. release year matches (movies) / show start year is compatible (series)
+  3. season+episode match exactly (series)
+  4. the file is alive (HTTP Range probe) and its real duration (ffprobe) fits the expected runtime
 """
 
-import difflib
+import base64
 import json
-import os
 import re
+import subprocess
 import threading
 import time
-import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from html import unescape
 from typing import Any, Dict, List, Optional, Tuple
 
-UA = "Mozilla/5.0 (Linux; Android 14; AshTube/1.0)"
-CONSUMET_URL = os.environ.get("CONSUMET_URL", "").rstrip("/")
-ANIWATCH_URL = os.environ.get("ANIWATCH_URL", "").rstrip("/")
+import bdix_index
 
-QUALITY_RE = re.compile(r"(2160p|4k|1440p|1080p|720p|576p|480p|360p)", re.I)
-VIDEO_EXT = (".mkv", ".mp4", ".m3u8", ".webm", ".avi")
-SUB_EXT = (".srt", ".vtt")
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+BAD_NAME = re.compile(r"\b(sample|trailer|featurette|extras?|behind the scenes|bonus|teaser|promo)\b", re.I)
 
 
-# --------------------------------------------------------------------------- http
+# --------------------------------------------------------------------------- cache / http
 
 class TTLCache:
     def __init__(self):
@@ -53,80 +48,73 @@ class TTLCache:
 
     def set(self, key: str, value: Any, ttl: float):
         with self._lock:
+            if len(self._data) > 5000:
+                now = time.time()
+                self._data = {k: v for k, v in self._data.items() if v[0] > now}
             self._data[key] = (time.time() + ttl, value)
 
 
 cache = TTLCache()
+_pool = ThreadPoolExecutor(max_workers=16, thread_name_prefix="ashtube")      # top-level jobs
+_leaf = ThreadPoolExecutor(max_workers=48, thread_name_prefix="ashtube-io")    # leaf I/O only, never submits more work
 
 
 def http_get(url: str, timeout: float = 15, headers: Optional[Dict[str, str]] = None) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         raw = resp.read()
-        charset = resp.headers.get_content_charset() or "utf-8"
-        return raw.decode(charset, errors="replace")
+        return raw.decode(resp.headers.get_content_charset() or "utf-8", errors="replace")
 
 
 def http_json(url: str, timeout: float = 15, headers: Optional[Dict[str, str]] = None) -> Any:
     return json.loads(http_get(url, timeout, headers))
 
 
-def probe(url: str, timeout: float = 8, headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
-    """Range probe: tells whether a URL really serves bytes, its size, and if seeking works."""
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-0", **(headers or {})})
+def probe(url: str, timeout: float = 4) -> Dict[str, Any]:
+    """Range probe: alive, size, and whether seeking (206) works."""
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Range": "bytes=0-0"})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
-            cr = resp.headers.get("Content-Range", "")
-            m = re.search(r"/(\d+)$", cr)
+            m = re.search(r"/(\d+)$", resp.headers.get("Content-Range", ""))
             size = int(m.group(1)) if m else int(resp.headers.get("Content-Length") or 0)
-            return {"ok": resp.status in (200, 206), "seekable": resp.status == 206, "size": size,
-                    "type": resp.headers.get("Content-Type", "")}
+            ctype = resp.headers.get("Content-Type", "")
+            ok = resp.status in (200, 206) and "text/html" not in ctype
+            return {"ok": ok, "seekable": resp.status == 206, "size": size, "type": ctype}
     except Exception:
         return {"ok": False, "seekable": False, "size": 0, "type": ""}
 
 
-# ----------------------------------------------------------------------- helpers
+def media_duration(url: str, timeout: int = 8) -> Optional[float]:
+    """Real container duration in minutes via ffprobe (reads only the header over HTTP)."""
+    key = f"dur:{url}"
+    hit = cache.get(key)
+    if hit is not None:
+        return hit or None
+    try:
+        out = subprocess.run(
+            ["ffprobe", "-v", "error", "-rw_timeout", str(timeout * 1_000_000), "-show_entries", "format=duration",
+             "-of", "csv=p=0", url],
+            capture_output=True, text=True, timeout=timeout + 4)
+        minutes = float(out.stdout.strip()) / 60 if out.stdout.strip() else 0.0
+    except Exception:
+        minutes = 0.0
+    cache.set(key, minutes, 6 * 3600)
+    return minutes or None
 
-def norm(text: str) -> str:
-    text = unicodedata.normalize("NFKD", text or "")
-    text = "".join(c for c in text if not unicodedata.combining(c)).lower()
-    text = re.sub(r"\(.*?\)|\[.*?\]", " ", text)
-    text = re.sub(r"[^a-z0-9]+", " ", text)
-    text = re.sub(r"^(the|a|an) ", "", text.strip())
-    return re.sub(r"\s+", " ", text).strip()
 
+# --------------------------------------------------------------------------- text helpers
 
-def match_score(query: str, candidate: str) -> float:
-    q, c = norm(query), norm(candidate)
-    if not q or not c:
-        return 0.0
-    if q == c:
-        return 1.0
-    qc, cc = q.replace(" ", ""), c.replace(" ", "")
-    if qc == cc:
-        return 0.98
-    ratio = difflib.SequenceMatcher(None, qc, cc).ratio()
-    if cc.startswith(qc) and len(qc) >= 6:
-        ratio = max(ratio, 0.86)
-    return ratio
+norm = bdix_index.norm
+title_key = bdix_index.title_key
 
 
 def strip_category_suffix(title: str) -> str:
     """'KGF: Chapter 2 (Bangla Dubbed)' -> 'KGF: Chapter 2'."""
-    return re.sub(r"\s*\((?:bangla dubbed|original bangla|bangla blockbuster|dubbed)[^)]*\)\s*$", "", title or "", flags=re.I).strip()
-
-
-def quality_of(name: str) -> str:
-    m = QUALITY_RE.search(name)
-    if not m:
-        return "HD"
-    q = m.group(1).lower()
-    return "4k" if q in ("2160p", "4k") else q
+    return re.sub(r"\s*\((?:bangla dubbed|bengali dubbed|original bangla|bangla blockbuster|dubbed|dual audio)[^)]*\)\s*$", "", title or "", flags=re.I).strip()
 
 
 def quality_rank(q: str) -> int:
-    order = {"4k": 5, "1440p": 4, "1080p": 3, "720p": 2, "576p": 1, "480p": 1, "360p": 0, "HD": 2}
-    return order.get(q, 2)
+    return {"4k": 5, "1440p": 4, "1080p": 3, "720p": 2, "576p": 1, "480p": 1, "360p": 0, "HD": 2, "auto": 3}.get(q, 2)
 
 
 def fmt_bytes(num: float) -> str:
@@ -137,502 +125,364 @@ def fmt_bytes(num: float) -> str:
     return ""
 
 
-# ----------------------------------------------------------------------- cinemeta
+# --------------------------------------------------------------------------- index provider
 
-class Cinemeta:
-    """Stremio Cinemeta: the metadata engine behind Stremio/Torrentio (docs: MOVIE research)."""
-    BASE = "https://v3-cinemeta.strem.io"
-
-    def search(self, query: str) -> List[Dict[str, Any]]:
-        key = f"cm:s:{query.lower()}"
-        hit = cache.get(key)
-        if hit is not None:
-            return hit
-        q = urllib.parse.quote(query.strip())
-        out: List[Dict[str, Any]] = []
-        for kind in ("movie", "series"):
-            try:
-                data = http_json(f"{self.BASE}/catalog/{kind}/top/search={q}.json", timeout=10)
-                out.extend(self._to_item(m, kind) for m in data.get("metas", []))
-            except Exception:
-                continue
-        out = [o for o in out if o]
-        cache.set(key, out, 1800)
-        return out
-
-    def meta(self, imdb_id: str, kind: str) -> Optional[Dict[str, Any]]:
-        key = f"cm:m:{kind}:{imdb_id}"
-        hit = cache.get(key)
-        if hit is not None:
-            return hit
-        try:
-            data = http_json(f"{self.BASE}/meta/{kind}/{imdb_id}.json", timeout=12)
-        except Exception:
-            return None
-        item = self._to_item(data.get("meta") or {}, kind, with_episodes=True)
-        if item:
-            cache.set(key, item, 3600)
-        return item
-
-    def _to_item(self, m: Dict[str, Any], kind: str, with_episodes: bool = False) -> Optional[Dict[str, Any]]:
-        imdb = m.get("imdb_id") or m.get("id")
-        name = m.get("name")
-        if not imdb or not name or not re.match(r"^tt\d+$", imdb):
-            return None
-        year_match = re.search(r"(\d{4})", str(m.get("year") or m.get("releaseInfo") or ""))
-        year = year_match.group(1) if year_match else ""
-        poster = m.get("poster") or f"https://images.metahub.space/poster/medium/{imdb}/img"
-        item: Dict[str, Any] = {
-            "id": f"cm-{imdb}",
-            "imdbId": imdb,
-            "title": name,
-            "category": "movies" if kind == "movie" else "series",
-            "year": year,
-            "rating": m.get("imdbRating") or "N/A",
-            "quality": "HD",
-            "duration": m.get("runtime") or "",
-            "genres": " · ".join(m.get("genres") or m.get("genre") or []),
-            "backdrop": m.get("background") or poster,
-            "poster": poster,
-            "synopsis": m.get("description") or "",
-            "isBDIX": False,
-            "audioTracks": [],
-            "isSeries": kind == "series",
-            "remote": True,
-        }
-        if with_episodes and kind == "series":
-            seasons: Dict[int, List[Dict[str, Any]]] = {}
-            for v in m.get("videos") or []:
-                season, num = v.get("season"), v.get("episode") or v.get("number")
-                if season is None or not num or season < 1:
-                    continue
-                aired = v.get("released") or v.get("firstAired")
-                if aired and aired[:10] > time.strftime("%Y-%m-%d"):
-                    continue
-                seasons.setdefault(int(season), []).append({
-                    "epNum": int(num),
-                    "title": v.get("name") or v.get("title") or f"Episode {num}",
-                    "runtime": item["duration"] or "",
-                    "thumb": v.get("thumbnail") or poster,
-                })
-            item["seasons"] = [
-                {"seasonNumber": s, "episodes": sorted(eps, key=lambda e: e["epNum"])}
-                for s, eps in sorted(seasons.items())
-            ]
-        return item
-
-    def identify(self, title: str, year: str = "", series: Optional[bool] = None) -> Optional[Dict[str, Any]]:
-        """Best Cinemeta match for a title (+year), used to get the IMDb id."""
-        best, best_score = None, 0.0
-        for cand in self.search(strip_category_suffix(title)):
-            if series is not None and cand["isSeries"] != series:
-                continue
-            score = match_score(title, cand["title"])
-            if year and cand["year"] and cand["year"] == str(year):
-                score += 0.05
-            if score > best_score:
-                best, best_score = cand, score
-        return best if best_score >= 0.8 else None
-
-
-cinemeta = Cinemeta()
-
-
-# ------------------------------------------------------------------- discovery ftp
-
-class DiscoveryFTP:
-    """Discovery FTP (BDIX): h5ai directory index with direct files. Verified: HTTP 206 Range support."""
-    NAME = "Discovery FTP"
-    MOVIE_ROOTS = {
-        "english": "https://cdn4.discoveryftp.net/Movies/English/",
-        "hindi": "https://cdn1.discoveryftp.net/Movies/Hindi/",
-        "bangla": "https://cdn1.discoveryftp.net/Movies/Bangla/",
-        "tamil": "https://cdn1.discoveryftp.net/Movies/Tamil/",
-        "animation": "https://cdn1.discoveryftp.net/Movies/Animation/",
-        "others": "https://cdn1.discoveryftp.net/Movies/Others/",
-    }
-    SERIES_ROOTS = {
-        "foreign": "https://cdn5.discoveryftp.net/Foreign%20Tv%20Series/",
-        "dubbed": "https://cdn2.discoveryftp.net/Dubbed%20Tv%20Series/",
-        "animation": "https://cdn2.discoveryftp.net/Animation%20Tv%20Series/",
-        "bangla": "https://cdn2.discoveryftp.net/Bangla%20Web%20Series/",
-        "hindi": "https://cdn2.discoveryftp.net/Hindi%20Web%20Series/",
-        "tamil": "https://cdn2.discoveryftp.net/Tamil%20Web%20Series/",
-    }
-    # Which roots to search for each AshTube category (first = most likely)
-    CATEGORY_MOVIE_ROOTS = {
-        "movies": ["english", "animation", "others"],
-        "bangla": ["bangla", "tamil", "others", "hindi", "english"],
-        "anime": ["animation", "others"],
-        "kdrama": ["others"],
-        "series": [],
-    }
-    CATEGORY_SERIES_ROOTS = {
-        "series": ["foreign", "dubbed", "animation"],
-        "anime": ["animation", "foreign", "dubbed"],
-        "kdrama": ["foreign", "dubbed"],
-        "bangla": ["bangla", "dubbed", "tamil", "hindi"],
-        "movies": [],
+def _row_to_source(r) -> Dict[str, Any]:
+    name = r["name"] or ""
+    container = name.rsplit(".", 1)[-1].lower() if "." in name else ""
+    return {
+        "provider": bdix_index.server_label(r["server"]),
+        "serverId": r["server"],
+        "quality": r["quality"] or "HD",
+        "codec": r["codec"] or "",
+        "size": fmt_bytes(r["size"]) if r["size"] else "",
+        "sizeBytes": r["size"] or 0,
+        "url": r["url"],
+        "fileName": name,
+        "container": container,
+        "hls": False,
+        "seekable": True,
+        "bdix": True,
+        "bucket": r["bucket"] or "",
+        "mtime": r["mtime"] or 0,
     }
 
-    def list_dir(self, url: str, ttl: float = 3600) -> Tuple[List[Tuple[str, str]], List[Tuple[str, str]]]:
-        """Returns (dirs, files) as lists of (name, absolute_url)."""
-        key = f"dftp:{url}"
-        hit = cache.get(key)
-        if hit is not None:
-            return hit
-        html = http_get(url, timeout=25)
-        parsed = urllib.parse.urlparse(url)
-        base = f"{parsed.scheme}://{parsed.netloc}"
-        dirs: List[Tuple[str, str]] = []
-        files: List[Tuple[str, str]] = []
-        seen = set()
-        for href in re.findall(r'<a href="([^"]+)"', html):
-            href = unescape(href)
-            if href in ("..", "#") or href.startswith(("http", "?", "#", "javascript")) or "_h5ai" in href:
-                continue
-            absolute = urllib.parse.urljoin(base, href)
-            if not absolute.startswith(url) or absolute == url or absolute in seen:
-                continue
-            seen.add(absolute)
-            name = urllib.parse.unquote(absolute[len(url):].strip("/"))
-            if "/" in name:
-                continue
-            (dirs if absolute.endswith("/") else files).append((name, absolute))
-        result = (dirs, files)
-        cache.set(key, result, ttl)
-        return result
 
-    def _best_dir(self, dirs: List[Tuple[str, str]], title: str, minimum: float = 0.86) -> Optional[Tuple[str, str]]:
-        best, best_score = None, 0.0
-        for name, url in dirs:
-            score = match_score(title, name)
-            if score > best_score:
-                best, best_score = (name, url), score
-        return best if best_score >= minimum else None
+def _dir_to_sources(dir_row, season: Optional[int], episode: Optional[int]) -> List[Dict[str, Any]]:
+    """Lazy listing of a title folder; parses each file path so S/E can be matched exactly."""
+    out = []
+    for f in bdix_index.list_dir_files(dir_row["url"], depth=2):
+        rel = urllib.parse.unquote(f["href"])
+        parsed = bdix_index.parse_entry(rel)
+        if not parsed or BAD_NAME.search(parsed["name"]):
+            continue
+        if season is not None and (parsed["season"], parsed["episode"]) != (season, episode):
+            continue
+        if season is None and parsed["episode"] is not None:
+            continue
+        if f["size"] and f["size"] < 80 * 1024 * 1024:
+            continue
+        name = parsed["name"]
+        t = f["time"] or 0
+        out.append({
+            "provider": bdix_index.server_label(dir_row["server"]), "serverId": dir_row["server"],
+            "quality": parsed["quality"], "codec": parsed["codec"], "size": fmt_bytes(f["size"]) if f["size"] else "",
+            "sizeBytes": f["size"] or 0, "url": f["url"], "fileName": name,
+            "container": name.rsplit(".", 1)[-1].lower(), "hls": False, "seekable": True, "bdix": True,
+            "bucket": parsed["bucket"], "mtime": int(t / 1000) if t > 1e11 else t,
+        })
+    return out
 
-    def _files_in(self, url: str, sub_depth: int = 1) -> List[Tuple[str, str]]:
-        dirs, files = self.list_dir(url, ttl=900)
-        found = [f for f in files if f[0].lower().endswith(VIDEO_EXT + SUB_EXT)]
-        if not found and sub_depth > 0:
-            for _, d in dirs[:6]:
-                found.extend(self._files_in(d, sub_depth - 1))
-        return found
 
-    # ---- movies
-    def find_movie(self, title: str, year: str, roots: List[str]) -> List[Tuple[str, str]]:
-        title = strip_category_suffix(title)
-        years = [str(year)] if year else []
-        if year and str(year).isdigit():
-            years += [str(int(year) + 1), str(int(year) - 1)]
-        for root_key in roots:
-            root = self.MOVIE_ROOTS[root_key]
-            for y in years:
-                try:
-                    dirs, files = self.list_dir(f"{root}{y}/")
-                except Exception:
-                    continue
-                cand = self._best_dir(dirs, title)
-                if cand:
-                    found = self._files_in(cand[1])
-                    if found:
-                        return found
-                # Some folders hold the files directly in the year directory
-                direct = [f for f in files if f[0].lower().endswith(VIDEO_EXT) and match_score(title, re.split(r"\.(19|20)\d\d\.", f[0])[0].replace(".", " ")) >= 0.9]
-                if direct:
-                    return direct
+def _year_ok(row_year: Optional[int], want: Optional[int], tol: int) -> bool:
+    if not want or not row_year:
+        return True
+    return abs(row_year - want) <= tol
+
+
+def index_sources(titles: List[str], year: Optional[int], is_series: bool, season: int, episode: int) -> List[Dict[str, Any]]:
+    keys = []
+    for t in titles:
+        k = title_key(strip_category_suffix(t))
+        if k and k not in keys:
+            keys.append(k)
+    rows = []
+    for k in keys:
+        rows.extend(bdix_index.find(k))
+    if not rows and keys:
+        # tolerant path: every token present, same token set once articles are removed
+        tokens = keys[0].split()
+        for r in bdix_index.find_fuzzy(tokens):
+            if set(r["tkey"].split()) == set(tokens):
+                rows.append(r)
+    if not rows:
         return []
 
-    # ---- series
-    def find_series_dir(self, title: str, roots: List[str]) -> Optional[Tuple[str, str]]:
-        title = strip_category_suffix(title)
-        best, best_score = None, 0.0
-        for root_key in roots:
-            try:
-                dirs, _ = self.list_dir(self.SERIES_ROOTS[root_key], ttl=21600)
-            except Exception:
-                continue
-            for name, url in dirs:
-                score = match_score(title, name)
-                if score > best_score:
-                    best, best_score = (name, url), score
-            if best_score >= 0.95:
-                break
-        return best if best_score >= 0.86 else None
+    files, dirs = [], []
+    for r in rows:
+        (files if r["kind"] == "file" else dirs).append(r)
 
-    def find_episode(self, show_url: str, season: int, episode: int) -> List[Tuple[str, str]]:
-        pat = re.compile(rf"S0*{season}[ ._-]*E0*{episode}(?!\d)", re.I)
-        alt = re.compile(rf"(?:^|[^a-z0-9])E(?:p|pisode)?[ ._-]*0*{episode}(?!\d)", re.I)
-        dirs, files = self.list_dir(show_url, ttl=900)
-        season_dirs = [d for d in dirs if re.search(rf"(?:season|series|s)[ ._-]*0*{season}(?!\d)", d[0], re.I)]
-        scan: List[Tuple[str, str]] = []
-        for _, d in season_dirs or [(None, show_url)]:
-            _, fs = self.list_dir(d, ttl=900)
-            scan.extend(fs)
-        scan.extend(files)
-        hits = [f for f in scan if f[0].lower().endswith(VIDEO_EXT) and pat.search(f[0])]
-        if not hits and season_dirs:
-            hits = [f for f in scan if f[0].lower().endswith(VIDEO_EXT) and alt.search(f[0])]
+    sources: List[Dict[str, Any]] = []
+    if is_series:
+        # Index years are the show's FIRST air year, so later seasons only need "started on or before this season".
+        yok = (lambda ry: ry is None or not year or ry <= year + 1) if season > 1 else (lambda ry: _year_ok(ry, year, 1))
+        for r in files:
+            if r["season"] == season and r["episode"] == episode and yok(r["year"]) and not BAD_NAME.search(r["name"] or ""):
+                if not r["size"] or r["size"] > 40 * 1024 * 1024:
+                    sources.append(_row_to_source(r))
+        if len(sources) < 3:
+            show_dirs = [d for d in dirs if yok(d["year"])][:4]
+            for fut in [_leaf.submit(_dir_to_sources, d, season, episode) for d in show_dirs]:
+                try:
+                    sources.extend(fut.result(timeout=20))
+                except Exception:
+                    pass
+    else:
+        exact = [r for r in files + dirs if r["year"] == year] if year else files + dirs
+        near = [r for r in files + dirs if _year_ok(r["year"], year, 1)] if year else []
+        chosen = exact or near
+        for r in chosen:
+            if r["kind"] == "file" and r["episode"] is None and not BAD_NAME.search(r["name"] or "") \
+                    and (not r["size"] or r["size"] > 100 * 1024 * 1024):
+                sources.append(_row_to_source(r))
+        dir_rows = [d for d in chosen if d["kind"] == "dir"][:6]
+        for fut in [_leaf.submit(_dir_to_sources, d, None, None) for d in dir_rows]:
+            try:
+                sources.extend(fut.result(timeout=20))
+            except Exception:
+                pass
+    return _dedupe(sources)
+
+
+def _dedupe(sources: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Mirror servers (DhakaFlix 9 and 10 hold the same files) collapse into one source with failover URLs."""
+    merged: Dict[Tuple[str, int], Dict[str, Any]] = {}
+    for s in sources:
+        key = (s["fileName"].lower(), s["sizeBytes"])
+        if key in merged:
+            merged[key].setdefault("mirrors", []).append(s["url"])
+        else:
+            merged[key] = s
+    return list(merged.values())
+
+
+# --------------------------------------------------------------------------- HiAnime provider
+
+class HiAnime:
+    BASE = "https://hianime.at"
+    KEY = b"otaku-embed-v1"
+    _gate = threading.Semaphore(4)     # polite concurrency: the site rate-limits bursts
+
+    def _get(self, url: str, referer: str = "", timeout: float = 12) -> str:
+        with self._gate:
+            for attempt in range(2):
+                try:
+                    return http_get(url, timeout, {"Referer": referer or self.BASE + "/"})
+                except urllib.error.HTTPError as exc:
+                    if exc.code not in (429, 503) or attempt:
+                        raise
+                    time.sleep(1.2)
+        raise RuntimeError("unreachable")
+
+    def search(self, title: str) -> List[Tuple[str, str]]:
+        key = f"hi:s:{title.lower()}"
+        hit = cache.get(key)
+        if hit is not None:
+            return hit
+        page = self._get(f"{self.BASE}/search?keyword={urllib.parse.quote(title)}")
+        if "Just a moment" in page:
+            raise RuntimeError("HiAnime blocked by Cloudflare")
+        page = re.sub(r'id="main-sidebar".*', "", page, flags=re.S)
+        hits = re.findall(r'<h3 class="film-name">\s*<a href="[^"]*/([^"/]*)"\s*title="([^"]*)"', page)
+        ent = {"&#039;": "'", "&amp;": "&", "&quot;": '"'}
+        hits = [(slug, re.sub(r"&#039;|&amp;|&quot;", lambda m: ent[m.group(0)], name)) for slug, name in hits]
+        cache.set(key, hits, 1800)
         return hits
 
-    def episode_count(self, show_url: str) -> Dict[int, int]:
-        dirs, files = self.list_dir(show_url, ttl=900)
-        counts: Dict[int, int] = {}
-        for name, url in dirs:
-            m = re.search(r"(\d+)", name)
-            if m and re.search(r"season|series|^s\d", name, re.I):
-                _, fs = self.list_dir(url, ttl=900)
-                counts[int(m.group(1))] = len([f for f in fs if f[0].lower().endswith(VIDEO_EXT)])
-        return counts
+    def episodes(self, slug: str) -> Dict[int, str]:
+        key = f"hi:e:{slug}"
+        hit = cache.get(key)
+        if hit is not None:
+            return hit
+        raw = self._get(f"{self.BASE}/api/theme/episode/list/{slug.rsplit('-', 1)[-1]}").replace("\\", "")
+        eps = {int(n): i for n, i in re.findall(r'data-number="([^"]*)".*?data-id="(\d+)"', raw.replace("ep-item", "\nep-item")) if n.isdigit()}
+        cache.set(key, eps, 900)
+        return eps
 
-    # ---- shared
-    def to_sources(self, files: List[Tuple[str, str]], kind_label: str = "") -> List[Dict[str, Any]]:
-        videos = [f for f in files if f[0].lower().endswith(VIDEO_EXT)]
-        subs = [f for f in files if f[0].lower().endswith(SUB_EXT)]
-        sources = []
-        with ThreadPoolExecutor(max_workers=6) as pool:
-            probes = list(pool.map(lambda f: probe(f[1]), videos[:8]))
-        for (name, url), pr in zip(videos[:8], probes):
-            if not pr["ok"]:
-                continue
-            sources.append({
-                "provider": self.NAME,
-                "quality": quality_of(name),
-                "size": fmt_bytes(pr["size"]),
-                "sizeBytes": pr["size"],
-                "url": url,
-                "fileName": name,
-                "container": name.rsplit(".", 1)[-1].lower(),
-                "hls": name.lower().endswith(".m3u8"),
-                "seekable": pr["seekable"],
-                "bdix": True,
-                "subtitles": [{"lang": _sub_lang(s[0]), "url": s[1]} for s in subs],
-            })
-        return sources
+    def _deob(self, blob: str) -> dict:
+        raw = base64.b64decode(blob)
+        return json.loads(bytes(b ^ self.KEY[i % len(self.KEY)] for i, b in enumerate(raw)).decode("utf-8", "replace"))
 
+    def streams(self, ep_id: str) -> List[Dict[str, Any]]:
+        servers = self._get(f"{self.BASE}/api/theme/episode/servers?episodeId={ep_id}").replace('\\"', '"')
+        embeds = {}
+        for item in servers.replace("server-item", "\nserver-item").split("\n"):
+            m = re.search(r'data-type="(\w+)".*?data-server-name="([^"]*)".*?data-hash="([^"]*)"', item)
+            if m and m.group(2) == "ZokoAnime":
+                embeds[m.group(1)] = base64.b64decode(m.group(3)).decode()
+        out: List[Dict[str, Any]] = []
 
-def _sub_lang(name: str) -> str:
-    low = name.lower()
-    for key, label in (("bangla", "Bengali"), ("bengali", "Bengali"), ("ben", "Bengali"), ("english", "English"), ("eng", "English")):
-        if key in low:
-            return label
-    return "Subtitle"
-
-
-discovery = DiscoveryFTP()
-
-
-# ----------------------------------------------------------------- consumet / aniwatch
-
-class Consumet:
-    """Consumet REST routes (FlixHQ, DramaCool, Gogoanime) - needs a self-hosted CONSUMET_URL."""
-
-    def available(self) -> bool:
-        if not CONSUMET_URL:
-            return False
-        cached = cache.get("consumet:alive")
-        if cached is not None:
-            return cached
-        try:
-            http_get(f"{CONSUMET_URL}/", timeout=5)
-            alive = True
-        except urllib.error.HTTPError:
-            alive = True
-        except Exception:
-            alive = False
-        cache.set("consumet:alive", alive, 120)
-        return alive
-
-    def _provider(self, category: str) -> Tuple[str, str]:
-        if category == "anime":
-            return "anime", "gogoanime"
-        if category == "kdrama":
-            return "movies", "dramacool"
-        return "movies", "flixhq"
-
-    def resolve(self, category: str, title: str, season: int, episode: int, year: str = "") -> List[Dict[str, Any]]:
-        if not self.available():
-            return []
-        group, name = self._provider(category)
-        q = urllib.parse.quote(strip_category_suffix(title))
-        results = http_json(f"{CONSUMET_URL}/{group}/{name}/{q}", timeout=15).get("results", [])
-        pick = max(results, key=lambda r: match_score(title, r.get("title", "")), default=None)
-        if not pick or match_score(title, pick.get("title", "")) < 0.8:
-            return []
-        info_url = f"{CONSUMET_URL}/{group}/{name}/info?id={urllib.parse.quote(pick['id'])}"
-        info = http_json(info_url, timeout=20)
-        episodes = info.get("episodes") or []
-        ep = None
-        if episodes:
-            ep = next((e for e in episodes if int(e.get("season", 1) or 1) == season and int(e.get("number", 0) or 0) == episode), None)
-            ep = ep or (episodes[episode - 1] if 0 < episode <= len(episodes) else None)
-        if group == "anime":
-            watch = f"{CONSUMET_URL}/anime/{name}/watch/{urllib.parse.quote(ep['id'])}" if ep else None
-        else:
-            if not ep and info.get("episodes") is not None and info.get("type", "").lower().startswith("movie") and episodes:
-                ep = episodes[0]
-            watch = f"{CONSUMET_URL}/movies/{name}/watch?episodeId={urllib.parse.quote(ep['id'])}&mediaId={urllib.parse.quote(info.get('id', pick['id']))}" if ep else None
-        if not watch:
-            return []
-        data = http_json(watch, timeout=25)
-        headers = data.get("headers") or {}
-        subs = [{"lang": s.get("lang", "Subtitle"), "url": s.get("url")} for s in data.get("subtitles", []) if s.get("url")]
-        out = []
-        for s in data.get("sources", []):
-            url = s.get("url")
-            if not url:
-                continue
-            out.append({
-                "provider": f"Consumet {name}",
-                "quality": str(s.get("quality", "auto")).lower() if s.get("quality") else "auto",
-                "size": "",
-                "sizeBytes": 0,
-                "url": url,
-                "hls": bool(s.get("isM3U8")) or ".m3u8" in url,
-                "seekable": True,
-                "headers": headers,
-                "bdix": False,
-                "subtitles": subs,
-            })
-        return out
-
-
-class Aniwatch:
-    """aniwatch-api (HiAnime) v2 routes - needs a self-hosted ANIWATCH_URL."""
-
-    def available(self) -> bool:
-        if not ANIWATCH_URL:
-            return False
-        cached = cache.get("aniwatch:alive")
-        if cached is not None:
-            return cached
-        try:
-            http_get(f"{ANIWATCH_URL}/api/v2/hianime/home", timeout=6)
-            alive = True
-        except Exception:
-            alive = False
-        cache.set("aniwatch:alive", alive, 120)
-        return alive
-
-    def resolve(self, title: str, episode: int) -> List[Dict[str, Any]]:
-        if not self.available():
-            return []
-        base = f"{ANIWATCH_URL}/api/v2/hianime"
-        q = urllib.parse.quote(strip_category_suffix(title))
-        animes = http_json(f"{base}/search?q={q}&page=1", timeout=15).get("data", {}).get("animes", [])
-        pick = max(animes, key=lambda a: match_score(title, a.get("name", "")), default=None)
-        if not pick or match_score(title, pick.get("name", "")) < 0.75:
-            return []
-        eps = http_json(f"{base}/anime/{pick['id']}/episodes", timeout=15).get("data", {}).get("episodes", [])
-        ep = next((e for e in eps if e.get("number") == episode), None)
-        if not ep:
-            return []
-        eid = urllib.parse.quote(ep["episodeId"], safe="")
-        out = []
-        for category in ("sub", "dub"):
+        def one(mode: str, embed: str):
+            ref = re.match(r"https?://[^/]+/", embed).group(0)
+            html = self._get(embed, self.BASE + "/")
+            blob = re.search(r'window\.__P="([^"]*)"', html)
+            if not blob:
+                return []
+            cfg = self._deob(blob.group(1))
+            src = cfg.get("src")
+            src = src if isinstance(src, str) else (src[0].get("src") if src else "")
+            if not src:
+                return []
+            subs = [{"lang": s.get("label") or s.get("lang", "Subtitle"), "url": s["src"]} for s in cfg.get("subtitles", []) if s.get("src")]
+            variants = [("auto", src)]
             try:
-                data = http_json(f"{base}/episode/sources?animeEpisodeId={eid}&server=hd-1&category={category}", timeout=25).get("data", {})
+                master = self._get(src, ref)
+                base = src.rsplit("/", 1)[0] + "/"
+                lines = master.splitlines()
+                for i, line in enumerate(lines):
+                    mm = re.search(r"RESOLUTION=\d+x(\d+)", line)
+                    if mm and i + 1 < len(lines):
+                        nxt = lines[i + 1].strip()
+                        variants.append((f"{mm.group(1)}p", nxt if nxt.startswith("http") else base + nxt))
             except Exception:
-                continue
-            subs = [{"lang": t.get("lang", "Subtitle"), "url": t.get("url")} for t in data.get("tracks", []) if t.get("url") and t.get("kind") != "thumbnails"]
-            for s in data.get("sources", []):
-                if s.get("url"):
-                    out.append({
-                        "provider": f"aniwatch {category}",
-                        "quality": "auto",
-                        "size": "",
-                        "sizeBytes": 0,
-                        "url": s["url"],
-                        "hls": bool(s.get("isM3U8")) or ".m3u8" in s["url"],
-                        "seekable": True,
-                        "headers": data.get("headers") or {},
-                        "bdix": False,
-                        "audio": "Dubbed" if category == "dub" else "Original + Subtitles",
-                        "subtitles": subs,
-                    })
+                pass
+            return [{
+                "provider": f"HiAnime {'Dub' if mode == 'dub' else 'Sub'}", "serverId": "hianime", "quality": q, "codec": "h264",
+                "size": "", "sizeBytes": 0, "url": u, "fileName": "", "container": "m3u8", "hls": True, "seekable": True,
+                "bdix": False, "bucket": "anime", "audio": "English Dub" if mode == "dub" else "Japanese + Subtitles",
+                "subtitles": subs, "referer": ref,
+            } for q, u in variants]
+
+        futs = [_leaf.submit(one, mode, e) for mode, e in embeds.items()]
+        for f in futs:
+            try:
+                out.extend(f.result(timeout=25))
+            except Exception:
+                pass
         return out
 
 
-consumet = Consumet()
-aniwatch = Aniwatch()
+hianime = HiAnime()
 
 
-# --------------------------------------------------------------------- resolver
+def _anime_canon(name: str) -> str:
+    """Canonical anime title: 'My Hero Academia Season 2' == 'My Hero Academia 2' == 'My Hero Academia 2nd Season'."""
+    n = norm(name)
+    n = re.sub(r"\b(\d+)(?:st|nd|rd|th) season\b", r"s\1", n)
+    n = re.sub(r"\bseason (\d+)\b", r"s\1", n)
+    for word, num in (("first", 1), ("second", 2), ("third", 3), ("fourth", 4), ("fifth", 5)):
+        n = re.sub(rf"\b{word} season\b", f"s{num}", n)
+    n = re.sub(r"(?<=[a-z]) (\d)$", r" s\1", n)          # trailing sequel number
+    return n.strip()
 
-def pick_default(sources: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
-    """Best default: prefer browser-playable containers, then up to 1080p, then biggest."""
-    def key(s):
-        playable = 2 if (s.get("hls") or s.get("container") in ("mp4", "webm")) else 1
-        q = quality_rank(s["quality"])
-        capped = q if q <= 3 else 3 - (q - 3) * 0.1
-        return (playable, capped, 1 if s.get("bdix") else 0)
-    return max(sources, key=key, default=None)
+
+def _anime_pick(titles: List[str]) -> Optional[str]:
+    """Best HiAnime slug for any metadata title: canonical equality wins, else near-exact ratio (season markers must agree)."""
+    import difflib
+    want = [_anime_canon(t) for t in titles if t]
+    if not want:
+        return None
+    best, best_score = None, 0.0
+    for q in list(dict.fromkeys(titles))[:4]:
+        try:
+            hits = hianime.search(q)
+        except Exception:
+            continue
+        for slug, name in hits[:10]:
+            n = _anime_canon(name)
+            if n in want:
+                score = 1.0
+            else:
+                score = max(difflib.SequenceMatcher(None, n, w).ratio() for w in want)
+                if re.search(r"\bs\d\b", n) != re.search(r"\bs\d\b", want[0]) and \
+                        (re.search(r"\bs\d\b", n) and re.search(r"\bs\d\b", want[0]) and re.search(r"\bs\d\b", n).group() != re.search(r"\bs\d\b", want[0]).group()):
+                    score -= 0.2     # different season number
+            if score > best_score:
+                best, best_score = slug, score
+        if best_score >= 0.99:
+            break
+    return best if best_score >= 0.9 else None
 
 
-def _lookup_all(category: str, title: str, year: str, season: int, episode: int, is_series: bool, imdb_id: str) -> Tuple[List[Dict[str, Any]], Dict[str, str]]:
-    status: Dict[str, str] = {}
-    sources: List[Dict[str, Any]] = []
-    tasks = {}
+def anime_sources(titles: List[str], episode: int) -> List[Dict[str, Any]]:
+    slug = _anime_pick(titles)
+    if not slug:
+        return []
+    ep_id = hianime.episodes(slug).get(episode)
+    return hianime.streams(ep_id) if ep_id else []
 
-    def ftp_series():
-        show = discovery.find_series_dir(title, discovery.CATEGORY_SERIES_ROOTS.get(category, ["foreign", "dubbed"]))
-        if not show:
-            return []
-        return discovery.to_sources(discovery.find_episode(show[1], season, episode))
 
-    def ftp_movie():
-        roots = discovery.CATEGORY_MOVIE_ROOTS.get(category) or ["english"]
-        return discovery.to_sources(discovery.find_movie(title, year, roots))
+# --------------------------------------------------------------------------- resolve
 
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        if is_series:
-            tasks[pool.submit(ftp_series)] = "Discovery FTP"
+def _score(s: Dict[str, Any], category: str) -> float:
+    score = {3: 5.0, 2: 4.2, 5: 3.4, 4: 3.6, 1: 2.5, 0: 1.0}.get(quality_rank(s["quality"]), 3.0)   # 1080p, 720p, then 4K
+    score += 1.2 if s["container"] in ("mp4", "m4v", "m3u8") else 0
+    score += 0.5 if s["codec"] == "h264" else (-0.3 if s["codec"] == "hevc" else 0)
+    flags = set(s.get("bucket", "").split())
+    if category == "bangla":
+        score += 4 if "banglaDubbed" in flags else (2 if "bangla" in flags else 0)
+    if category == "anime" and s.get("hls"):
+        score += 1.5
+    if s.get("seekable"):
+        score += 0.5
+    return score
+
+
+def _verify(sources: List[Dict[str, Any]], expected_min: Optional[float], is_series: bool, category: str, limit: int = 4) -> List[Dict[str, Any]]:
+    """Liveness (Range probe) for all candidates, then a real-duration check for the best few."""
+    live: List[Dict[str, Any]] = []
+    futs = {_leaf.submit(probe, s["url"]): s for s in sources[:14] if not s.get("hls")}
+    for f in as_completed(futs):
+        s = futs[f]
+        try:
+            p = f.result()
+        except Exception:
+            continue
+        if p["ok"]:
+            s["seekable"] = p["seekable"]
+            if p["size"]:
+                s["sizeBytes"], s["size"] = p["size"], fmt_bytes(p["size"])
+            live.append(s)
         else:
-            tasks[pool.submit(ftp_movie)] = "Discovery FTP"
-        if category == "anime" and aniwatch.available():
-            tasks[pool.submit(aniwatch.resolve, title, episode)] = "aniwatch-api"
-        if consumet.available():
-            tasks[pool.submit(consumet.resolve, category, title, season, episode, year)] = "Consumet"
-        for fut in as_completed(tasks, timeout=60):
-            name = tasks[fut]
-            try:
-                found = fut.result()
-                sources.extend(found)
-                status[name] = f"{len(found)} source(s)" if found else "not found"
-            except Exception as exc:
-                status[name] = f"error: {exc}"
-    if CONSUMET_URL == "" and "Consumet" not in status:
-        status["Consumet"] = "not configured (set CONSUMET_URL to a self-hosted instance)"
-    if category == "anime" and not ANIWATCH_URL:
-        status["aniwatch-api"] = "not configured (set ANIWATCH_URL to a self-hosted instance)"
-    return sources, status
+            for m in s.get("mirrors", []):
+                if probe(m)["ok"]:
+                    s["url"] = m
+                    live.append(s)
+                    break
+    live.extend(s for s in sources if s.get("hls"))
+    live.sort(key=lambda s: -_score(s, category))
+
+    head = [s for s in live if not s.get("hls")][:limit]
+    durations = dict(zip((id(s) for s in head), _leaf.map(lambda s: media_duration(s["url"]), head)))
+    keep = []
+    for s in live:
+        dur = durations.get(id(s))
+        if s.get("hls") or id(s) not in durations:
+            keep.append(s)
+            continue
+        s["durationMin"] = round(dur) if dur else None
+        if dur:
+            lo, hi = (8, 200) if is_series else (35, 400)
+            if expected_min:
+                lo, hi = expected_min * 0.55, expected_min * 1.6
+            if not (lo <= dur <= hi):
+                continue   # wrong content for this title
+        keep.append(s)
+    return keep
 
 
 def resolve_media(media_id: str, category: str, title: str, year: str = "", season: int = 1, episode: int = 1,
-                  is_series: Optional[bool] = None) -> Dict[str, Any]:
+                  is_series: Optional[bool] = None, alt_titles: Optional[List[str]] = None,
+                  runtime_min: Optional[float] = None) -> Dict[str, Any]:
     category = (category or "").lower() or (media_id.split("-")[0] if "-" in media_id else "movies")
     category = {"movie": "movies"}.get(category, category)
-    imdb_id = ""
-    if media_id.startswith("cm-"):
-        imdb_id = media_id[3:]
     if is_series is None:
         is_series = category in ("series", "anime", "kdrama")
-    # Names like "Hawa (Original Bangla)" are always movies in the catalog; honour explicit flag when given.
-    if not title and imdb_id:
-        meta = cinemeta.meta(imdb_id, "series" if is_series else "movie")
-        if meta:
-            title, year = meta["title"], meta["year"]
+    titles = [title] + [t for t in (alt_titles or []) if t and t != title]
+    year_i = int(year) if str(year or "").isdigit() else None
 
-    cache_key = f"resolve:{category}:{title}:{year}:{season}:{episode}:{bool(is_series)}"
+    cache_key = f"resolve:{category}:{'|'.join(titles[:3])}:{year_i}:{season}:{episode}:{bool(is_series)}"
     hit = cache.get(cache_key)
     if hit is not None:
         return hit
 
-    sources, status = _lookup_all(category, title, str(year or ""), int(season), int(episode), bool(is_series), imdb_id)
-    sources.sort(key=lambda s: (-quality_rank(s["quality"]), s["provider"]))
-    default = pick_default(sources)
+    status: Dict[str, str] = {}
+    sources: List[Dict[str, Any]] = []
+    jobs = {"BDIX index": _pool.submit(index_sources, titles, year_i, bool(is_series), int(season), int(episode))}
+    if category == "anime":
+        jobs["HiAnime"] = _pool.submit(anime_sources, titles, int(episode))
+    for name, fut in jobs.items():
+        try:
+            found = fut.result(timeout=45)
+            sources.extend(found)
+            status[name] = f"{len(found)} source(s)" if found else "not found"
+        except Exception as exc:
+            status[name] = f"error: {str(exc)[:80]}"
+
+    sources = _verify(sources, runtime_min, bool(is_series), category)
+    default = max(sources, key=lambda s: _score(s, category), default=None)
     qualities: Dict[str, str] = {}
-    for s in sources:
+    for s in sorted(sources, key=lambda s: -_score(s, category)):
         qualities.setdefault(s["quality"], s["url"])
 
     result = {
@@ -642,8 +492,7 @@ def resolve_media(media_id: str, category: str, title: str, year: str = "", seas
         "season": season if is_series else None,
         "episode": episode if is_series else None,
         "stream_url": default["url"] if default else "",
-        "download_url": max(sources, key=lambda s: (s.get("seekable"), s.get("sizeBytes", 0)), default={}).get("url", "") if sources else "",
-        "headers": default.get("headers", {}) if default else {},
+        "download_url": max((s for s in sources if not s.get("hls")), key=lambda s: (s.get("seekable"), s.get("sizeBytes", 0)), default={}).get("url", ""),
         "subtitles": default.get("subtitles", []) if default else [],
         "audio_tracks": sorted({s["audio"] for s in sources if s.get("audio")}),
         "qualities": qualities,
@@ -651,49 +500,62 @@ def resolve_media(media_id: str, category: str, title: str, year: str = "", seas
         "providers": status,
     }
     if not sources:
-        result["error"] = "No source currently hosts this title"
-    cache.set(cache_key, result, 600 if sources else 120)
+        result["error"] = "No source currently hosts this exact title"
+    cache.set(cache_key, result, 900 if sources else 90)
     return result
 
 
-def search_bdix(query: str, limit: int = 6) -> List[Dict[str, Any]]:
-    """Searches Discovery FTP for titles matching the query (via Cinemeta for year/type)."""
-    query = (query or "").strip()
-    if len(query) < 3:
+def has_source(titles: List[str], year: Optional[int], is_series: bool) -> bool:
+    """Instant (local index only) availability check used to badge catalog cards."""
+    for t in titles:
+        k = title_key(strip_category_suffix(t))
+        if not k:
+            continue
+        for r in bdix_index.find(k, limit=40):
+            if is_series:
+                if _year_ok(r["year"], year, 1) and (r["episode"] is not None or r["kind"] == "dir"):
+                    return True
+            elif r["episode"] is None and (year is None or _year_ok(r["year"], year, 1)):
+                return True
+    return False
+
+
+def search_bdix(query: str, limit: int = 8) -> List[Dict[str, Any]]:
+    """Index-backed title search (used by /api/search and auto-suggest)."""
+    tokens = norm(query).split()
+    if not tokens:
         return []
-    key = f"bdixsearch:{query.lower()}"
-    hit = cache.get(key)
-    if hit is not None:
-        return hit
-    cands = cinemeta.search(query)[:4]
-    results: List[Dict[str, Any]] = []
-
-    def one(c):
-        if c["isSeries"]:
-            show = discovery.find_series_dir(c["title"], ["foreign", "dubbed", "animation", "bangla", "hindi", "tamil"])
-            if show:
-                return {"server": DiscoveryFTP.NAME, "title": c["title"], "year": c["year"], "type": "series", "path": show[1], "online": True}
-        else:
-            files = discovery.find_movie(c["title"], c["year"], ["english", "animation", "bangla", "hindi", "tamil", "others"])
-            vids = [f for f in files if f[0].lower().endswith(VIDEO_EXT)]
-            if vids:
-                best = max(vids, key=lambda f: quality_rank(quality_of(f[0])))
-                return {"server": DiscoveryFTP.NAME, "title": c["title"], "year": c["year"], "type": "movie",
-                        "file_path": best[0], "direct_url": best[1], "quality": quality_of(best[0]), "online": True}
-        return None
-
-    with ThreadPoolExecutor(max_workers=4) as pool:
-        for r in pool.map(one, cands):
-            if r:
-                results.append(r)
-    cache.set(key, results[:limit], 900)
-    return results[:limit]
+    seen, out = set(), []
+    for r in bdix_index.find_fuzzy(tokens, limit=150):
+        key = (r["tkey"], r["year"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append({"server": bdix_index.server_label(r["server"]), "title": r["title"], "year": r["year"],
+                    "type": "series" if (r["episode"] is not None or "series" in (r["bucket"] or "")) else "movie",
+                    "quality": r["quality"], "online": True})
+        if len(out) >= limit:
+            break
+    return out
 
 
-# -------------------------------------------------------------------------- live tv
+def provider_status() -> Dict[str, Any]:
+    stats = bdix_index.index_stats()
+    out: Dict[str, Any] = {"index": {"entries": stats["entries"]}}
+    for sid, st in stats["status"].items():
+        out[f"{bdix_index.server_label(sid)} [{sid}]"] = {"online": bool(st.get("ok")), "rows": st.get("rows", 0), "updated": st.get("at", 0)}
+    start = time.time()
+    try:
+        hianime.search("naruto")
+        out["HiAnime"] = {"online": True, "latency_ms": round((time.time() - start) * 1000)}
+    except Exception as exc:
+        out["HiAnime"] = {"online": False, "error": str(exc)[:80]}
+    return out
+
+
+# --------------------------------------------------------------------------- live tv (Mrgify BDIX IPTV)
 
 MRGIFY_URL = "https://raw.githubusercontent.com/abusaeeidx/Mrgify-BDIX-IPTV/main/Channels_data.json"
-
 _CATEGORY_RULES = [
     ("sports", re.compile(r"sport|cricket|football|ten\b|\bt ?sports|gazi|ptv sports|star sports", re.I)),
     ("news", re.compile(r"news|somoy|jamuna|ekattor|dbc|independent|channel ?24|atn news|ekushey|news24|nagorik|bangla ?vision", re.I)),
@@ -714,78 +576,52 @@ def _probe_stream(url: str, timeout: float = 6) -> Tuple[bool, float]:
         req = urllib.request.Request(url, headers={"User-Agent": UA})
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             head = resp.read(2048).decode("utf-8", errors="ignore")
-            ok = resp.status == 200 and ("#EXTM3U" in head or "#EXT" in head)
-            return ok, (time.time() - start) * 1000
+            return resp.status == 200 and "#EXT" in head, (time.time() - start) * 1000
     except Exception:
         return False, 0.0
 
 
 def fetch_live_channels(force: bool = False) -> List[Dict[str, Any]]:
-    """Live Bangla TV from the Mrgify BDIX IPTV playlist; dead streams are filtered out."""
     if not force:
         hit = cache.get("livetv")
         if hit is not None:
             return hit
     data = http_json(MRGIFY_URL, timeout=15)
     raw = [c for c in data.get("channels", []) if c.get("name") and str(c.get("url", "")).startswith("http")]
-    # Same channel can appear with several URLs: keep the first as primary, the rest as backups.
     grouped: Dict[str, List[Dict[str, Any]]] = {}
     for c in raw:
         grouped.setdefault(norm(re.sub(r"\(\d+p\)", "", c["name"])), []).append(c)
 
-    def check(group: List[Dict[str, Any]]):
+    def check(group):
         alive = []
         for c in group:
             ok, ms = _probe_stream(c["url"])
             if ok:
                 alive.append((c, ms))
-        return group[0]["name"], alive
+        return alive
 
     channels: List[Dict[str, Any]] = []
-    with ThreadPoolExecutor(max_workers=16) as pool:
-        for name, alive in pool.map(check, grouped.values()):
-            if not alive:
-                continue
-            primary, ms = alive[0]
-            clean = re.sub(r"\s*\((\d+p)\)", "", primary["name"]).strip()
-            res = re.search(r"\((\d+p)\)", primary["name"])
-            category, badge = _classify(clean)
-            channels.append({
-                "id": re.sub(r"[^a-z0-9]+", "-", clean.lower()).strip("-"),
-                "name": clean,
-                "category": category,
-                "program": "Live",
-                "latency": f"{int(ms)}ms",
-                "isHls": ".m3u8" in primary["url"],
-                "streamUrl": primary["url"],
-                "backupUrl": alive[1][0]["url"] if len(alive) > 1 else "",
-                "badge": badge,
-                "resolution": res.group(1) if res else "Live",
-            })
+    for alive in _leaf.map(check, grouped.values()):
+        if not alive:
+            continue
+        primary, ms = alive[0]
+        clean = re.sub(r"\s*\((\d+p)\)", "", primary["name"]).strip()
+        res = re.search(r"\((\d+p)\)", primary["name"])
+        category, badge = _classify(clean)
+        channels.append({
+            "id": re.sub(r"[^a-z0-9]+", "-", clean.lower()).strip("-"), "name": clean, "category": category,
+            "program": "Live", "latency": f"{int(ms)}ms", "isHls": ".m3u8" in primary["url"],
+            "streamUrl": primary["url"], "backupUrl": alive[1][0]["url"] if len(alive) > 1 else "",
+            "badge": badge, "resolution": res.group(1) if res else "Live",
+        })
     channels.sort(key=lambda c: (c["category"] != "news", c["name"].lower()))
     if channels:
         cache.set("livetv", channels, 600)
     return channels
 
 
-# ----------------------------------------------------------------------- ping/status
-
-def provider_status() -> Dict[str, Any]:
-    out = {}
-    for name, url in (("Discovery FTP", "https://cdn4.discoveryftp.net/Movies/English/"), ("Cinemeta", "https://v3-cinemeta.strem.io/manifest.json")):
-        start = time.time()
-        try:
-            http_get(url, timeout=8)
-            out[name] = {"online": True, "latency_ms": round((time.time() - start) * 1000)}
-        except Exception as exc:
-            out[name] = {"online": False, "error": str(exc)}
-    out["Consumet"] = {"online": consumet.available(), "configured": bool(CONSUMET_URL)}
-    out["aniwatch-api"] = {"online": aniwatch.available(), "configured": bool(ANIWATCH_URL)}
-    return out
-
-
 if __name__ == "__main__":
     import sys
-    r = resolve_media("movie-dune-2", "movies", "Dune: Part Two", "2024")
+    r = resolve_media("movie-dune-2", "movies", "Dune: Part Two", "2024", runtime_min=166)
     print(json.dumps({k: r[k] for k in ("found", "stream_url", "qualities", "providers")}, indent=1))
     sys.exit(0 if r["found"] else 1)

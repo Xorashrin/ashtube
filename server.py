@@ -20,6 +20,7 @@ import os
 import sys
 import threading
 import re
+import time
 
 from downloader_engine import downloader_instance
 from bdix_indexer import scan_all_bdix_servers
@@ -29,6 +30,8 @@ from bangla_dubbed_resolver import bangla_resolver_instance
 from kdrama_resolver import kdrama_resolver_instance
 from bdix_searcher import bdix_searcher_instance
 import source_engine
+import bdix_index
+import meta_feeds
 
 PORT = 8000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -79,10 +82,12 @@ PROXY_HOSTS = set()
 PROXY_UA = "Mozilla/5.0 (Linux; Android 14; AshTube/1.0)"
 
 
-def register_proxy_url(url):
+def register_proxy_url(url, referer=""):
     """Only hosts that AshTube itself handed out (live channels, resolved sources) may be proxied."""
     if isinstance(url, str) and url.startswith(("http://", "https://")):
         PROXY_HOSTS.add(urllib.parse.urlparse(url).netloc.lower())
+        if referer:
+            PROXY_HOSTS.add(urllib.parse.urlparse(referer).netloc.lower())
 
 
 def parse_range(header, size):
@@ -120,32 +125,51 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             })
             return
 
-        # 2. Dynamic Catalog API
+        # 2. Home rails (instant: served from the in-memory / on-disk feed snapshot)
+        elif path == "/api/home":
+            feeds = meta_feeds.get_feeds()
+            self.send_json_response({"success": True, "updatedAt": feeds.get("at", 0), "now": int(time.time()), "rails": feeds.get("rails", [])})
+            return
+
+        # 2b. Upcoming episodes / releases with countdown timestamps
+        elif path == "/api/upcoming":
+            feeds = meta_feeds.get_feeds()
+            items = feeds.get("catalog", {}).get("upcoming", [])
+            self.send_json_response({"success": True, "now": int(time.time()), "count": len(items), "items": items})
+            return
+
+        # 2c. Catalog by category (live feeds, falls back to the bundled snapshot)
         elif path == "/api/catalog":
-            catalog = load_catalog()
             cat = params.get("category", ["all"])[0].lower()
-            if cat != "all":
-                results = [item for item in catalog if item.get("category") == cat]
+            catalog = meta_feeds.get_feeds().get("catalog", {})
+            if cat == "all":
+                merged, seen = [], set()
+                for key in ("movies", "series", "anime", "kdrama", "bangla"):
+                    for it in catalog.get(key, []):
+                        if it["id"] not in seen:
+                            seen.add(it["id"])
+                            merged.append(it)
+                results = merged
             else:
-                results = catalog
+                results = catalog.get(cat, [])
+            if not results:
+                results = [i for i in load_catalog() if cat == "all" or i.get("category") == cat]
             self.send_json_response({"success": True, "category": cat, "count": len(results), "items": results})
             return
 
-        # 3. Media Details API (/api/media/<id>)
+        # 3. Media Details API (/api/media/<id>): Cinemeta / Kitsu / kisskh with real episode lists
         elif path.startswith("/api/media/"):
             media_id = urllib.parse.unquote(path.replace("/api/media/", "").strip())
-            catalog = load_catalog()
-            found = next((item for item in catalog if item.get("id") == media_id), None)
-            if not found and media_id.startswith("cm-"):
-                kind = params.get("type", ["movie"])[0]
-                found = source_engine.cinemeta.meta(media_id[3:], "series" if kind == "series" else "movie")
+            found = meta_feeds.detail(media_id)
+            if not found:
+                found = next((item for item in load_catalog() if item.get("id") == media_id), None)
             if found:
                 self.send_json_response({"success": True, "media": found})
             else:
                 self.send_json_response({"success": False, "error": "Media not found"}, 404)
             return
 
-        # 3. Stream Resolver API (/api/stream/resolve?id=&category=&title=&year=&season=&episode=)
+        # 3b. Stream Resolver API (/api/stream/resolve?id=&category=&title=&year=&season=&episode=)
         elif path == "/api/stream/resolve":
             media_id = params.get("id", [""])[0].strip()
             category = params.get("category", [""])[0].strip().lower()
@@ -158,157 +182,60 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
                 season, episode = 1, 1
             series_flag = params.get("series", [""])[0].lower()
             is_series = None if series_flag == "" else series_flag in ("1", "true", "yes")
-
             if not category and "-" in media_id:
                 category = media_id.split("-")[0]
-            if category == "anime":
-                resolver = lambda: anime_resolver_instance.resolve_anime(media_id, title, year, season, episode)
-            elif category == "bangla":
-                resolver = lambda: bangla_resolver_instance.resolve_bangla(media_id, title, year, season, episode)
-            elif category == "kdrama":
-                resolver = lambda: kdrama_resolver_instance.resolve_kdrama(media_id, title, year, season, episode)
-            elif is_series and category in ("series", ""):
-                resolver = lambda: source_engine.resolve_media(media_id, "series", title, year, season, episode, True)
-            else:
-                resolver = lambda: movie_resolver_instance.resolve_movie(media_id, title, year, season, episode)
+            alts, runtime = list(params.get("alt", [])), None
+            # Enrich from the metadata source so aliases, base title, season and runtime are exact
+            meta = meta_feeds.detail(media_id) if media_id.startswith(("cm-", "kt-", "kk-")) else None
+            if meta:
+                title = meta.get("baseTitle") or title or meta.get("title", "")
+                year = year or str(meta.get("year", ""))
+                alts += meta.get("altTitles", [])
+                runtime = meta.get("runtimeMin")
+                category = category or meta.get("category", "")
+                if media_id.startswith("kk-"):
+                    season = meta.get("season", season)
+                    is_series = True
+                    if season > 1:
+                        year = ""      # kisskh years are per-season; the index stores the show's first year
+            if category == "kdrama" or category == "anime":
+                is_series = True if is_series is None else is_series
             try:
-                res = resolver()
+                res = source_engine.resolve_media(media_id, category, title, year, season, episode, is_series, alts, runtime)
             except Exception as exc:
                 self.send_json_response({"success": False, "error": f"Resolver failed: {exc}"}, 502)
                 return
             for src in res.get("sources", []):
-                register_proxy_url(src.get("url"))
+                register_proxy_url(src.get("url"), src.get("referer", ""))
+                for m in src.get("mirrors", []):
+                    register_proxy_url(m)
             self.send_json_response({"success": res.get("found", False), "error": res.get("error", ""), "resolved": res})
             return
 
-        # 4. Instant Real-Time Search with Category & Multi-Field Matching
+        # 4. Search: metadata from Cinemeta + Kitsu + kisskh in parallel, each hit flagged with availability
         elif path == "/api/search":
-            query = params.get("q", [""])[0].lower().strip()
+            query = params.get("q", [""])[0].strip()
             cat_filter = params.get("category", ["all"])[0].lower().strip()
-            catalog = load_catalog()
-            if query:
-                matches = [
-                    item for item in catalog
-                    if (
-                        query in item.get("title", "").lower()
-                        or query in item.get("genres", "").lower()
-                        or query in item.get("synopsis", "").lower()
-                        or query in item.get("category", "").lower()
-                        or any(query in track.lower() for track in item.get("audioTracks", []))
-                        or query in str(item.get("year", "")).lower()
-                    )
-                ]
-            else:
-                matches = catalog
-            
-            if cat_filter != "all":
-                matches = [item for item in matches if item.get("category") == cat_filter]
-
-            remote = []
-            if len(query) >= 3:
-                have = {norm_title(i.get("title", "")) for i in matches}
-                try:
-                    for cand in source_engine.cinemeta.search(query)[:12]:
-                        if norm_title(cand["title"]) in have:
-                            continue
-                        if cat_filter in ("movies", "series") and cand["category"] != cat_filter:
-                            continue
-                        if cat_filter not in ("all", "movies", "series"):
-                            continue
-                        remote.append(cand)
-                except Exception:
-                    remote = []
-            bdix_results = bdix_searcher_instance.search_bdix(query) if query else []
-            self.send_json_response({
-                "success": True,
-                "query": query,
-                "category": cat_filter,
-                "count": len(matches) + len(remote),
-                "items": matches + remote,
-                "bdix_results": bdix_results
-            })
+            items = meta_feeds.search(query, cat_filter) if query else meta_feeds.get_feeds().get("catalog", {}).get(cat_filter, [])
+            bdix_results = source_engine.search_bdix(query) if query else []
+            self.send_json_response({"success": True, "query": query.lower(), "category": cat_filter, "count": len(items),
+                                     "items": items, "bdix_results": bdix_results})
             return
 
-        # 5. Predictive Auto-Suggest & Next-Word Completion Engine
+        # 5. Instant suggest straight from the local BDIX title index (no network)
         elif path == "/api/suggest":
-            query = params.get("q", [""])[0].lower().strip()
-            catalog = load_catalog()
-            
-            # Harvest phrases from titles, genres, and sub-phrases for next-word predictions
-            phrases_set = set()
-            for item in catalog:
-                title = item.get("title", "")
-                phrases_set.add(title)
-                
-                # Add word combinations (e.g. "Dune: Part Two" -> "Dune", "Dune: Part", "Part Two")
-                words = title.split()
-                for i in range(1, len(words) + 1):
-                    phrases_set.add(" ".join(words[:i]))
-                
-                # Add genres
-                for g in item.get("genres", "").replace("·", ",").split(","):
-                    clean_g = g.strip()
-                    if clean_g:
-                        phrases_set.add(clean_g)
-
+            query = params.get("q", [""])[0].strip()
             if not query:
-                # Popular / Trending suggestions
-                popular_titles = [
-                    {
-                        "id": it["id"],
-                        "title": it["title"],
-                        "category": it.get("category", ""),
-                        "year": it.get("year", ""),
-                        "rating": it.get("rating", ""),
-                        "poster": it.get("poster", "")
-                    }
-                    for it in catalog[:6]
-                ]
-                self.send_json_response({
-                    "success": True,
-                    "query": "",
-                    "titles": popular_titles,
-                    "phrases": ["Dune: Part Two", "Solo Leveling", "Queen of Tears", "KGF: Chapter 2", "Bangla Dubbed", "Attack on Titan", "Shōgun"]
-                })
+                popular = [{"id": it["id"], "title": it["title"], "category": it.get("category", ""), "year": it.get("year", ""),
+                            "rating": it.get("rating", ""), "poster": it.get("poster", "")}
+                           for rail in meta_feeds.get_feeds().get("rails", [])[:1] for it in rail["items"][:6]]
+                self.send_json_response({"success": True, "query": "", "titles": popular,
+                                         "phrases": [it["title"] for it in popular]})
                 return
-
-            # Match titles (priority: startsWith > contains)
-            exact_starts = []
-            contains_matches = []
-            for item in catalog:
-                t_lower = item.get("title", "").lower()
-                entry = {
-                    "id": item["id"],
-                    "title": item["title"],
-                    "category": item.get("category", ""),
-                    "year": item.get("year", ""),
-                    "rating": item.get("rating", ""),
-                    "poster": item.get("poster", "")
-                }
-                if t_lower.startswith(query):
-                    exact_starts.append(entry)
-                elif query in t_lower or any(query in g.lower() for g in item.get("genres", "").split("·")):
-                    contains_matches.append(entry)
-            
-            matching_titles = (exact_starts + contains_matches)[:6]
-
-            # Next-word & predictive phrase completion
-            matched_phrases = []
-            for phrase in sorted(phrases_set, key=len):
-                p_lower = phrase.lower()
-                if p_lower.startswith(query) and p_lower != query:
-                    if phrase not in matched_phrases:
-                        matched_phrases.append(phrase)
-                elif query in p_lower and p_lower != query:
-                    if phrase not in matched_phrases:
-                        matched_phrases.append(phrase)
-
-            self.send_json_response({
-                "success": True,
-                "query": query,
-                "titles": matching_titles,
-                "phrases": matched_phrases[:8]
-            })
+            hits = source_engine.search_bdix(query, limit=10)
+            titles = [{"id": "", "title": h["title"], "category": h["type"], "year": h["year"] or "", "rating": "", "poster": ""} for h in hits[:6]]
+            self.send_json_response({"success": True, "query": query.lower(), "titles": titles,
+                                     "phrases": list(dict.fromkeys(h["title"] for h in hits))[:8]})
             return
 
         # 6. Direct User Storage File Streamer / Downloader (with HTTP Range for seeking)
@@ -361,12 +288,14 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
 
         # Stream proxy: adds CORS, forwards Range, rewrites HLS playlists so every segment is proxied too
         elif path == "/api/proxy":
-            self.handle_proxy(params.get("u", [""])[0])
+            self.handle_proxy(params.get("u", [""])[0], params.get("r", [""])[0])
             return
 
-        # Source provider health (Discovery FTP, Cinemeta, Consumet, aniwatch-api)
+        # Source provider health (index shards, HiAnime) + feed age
         elif path == "/api/providers/status":
-            self.send_json_response({"success": True, "providers": source_engine.provider_status()})
+            feeds = meta_feeds.get_feeds()
+            self.send_json_response({"success": True, "providers": source_engine.provider_status(),
+                                     "feedsUpdatedAt": feeds.get("at", 0)})
             return
 
         # 8. BDIX status & latency
@@ -497,12 +426,14 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Max-Age", "86400")
         self.end_headers()
 
-    def handle_proxy(self, target):
+    def handle_proxy(self, target, referer=""):
         parsed = urllib.parse.urlparse(target)
         if parsed.scheme not in ("http", "https") or parsed.netloc.lower() not in PROXY_HOSTS:
             self.send_json_response({"error": "URL is not an AshTube-issued stream"}, 403)
             return
         headers = {"User-Agent": PROXY_UA}
+        if referer.startswith(("http://", "https://")):
+            headers["Referer"] = referer
         if self.headers.get("Range"):
             headers["Range"] = self.headers["Range"]
         try:
@@ -518,7 +449,7 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             is_playlist = ".m3u8" in parsed.path.lower() or "mpegurl" in ctype.lower()
             if is_playlist:
                 text = resp.read(4 * 1024 * 1024).decode("utf-8", errors="replace")
-                body = self.rewrite_playlist(text, resp.geturl()).encode("utf-8")
+                body = self.rewrite_playlist(text, resp.geturl(), referer).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/vnd.apple.mpegurl")
                 self.send_header("Access-Control-Allow-Origin", "*")
@@ -544,13 +475,13 @@ class AshTubeHandler(http.server.SimpleHTTPRequestHandler):
             except (BrokenPipeError, ConnectionResetError):
                 pass
 
-    def rewrite_playlist(self, text, base_url):
+    def rewrite_playlist(self, text, base_url, referer=""):
         prefix = f"http://{self.headers.get('Host', f'localhost:{PORT}')}/api/proxy?u="
 
         def wrap(ref):
             absolute = urllib.parse.urljoin(base_url, ref.strip())
             register_proxy_url(absolute)
-            return prefix + urllib.parse.quote(absolute, safe="")
+            return prefix + urllib.parse.quote(absolute, safe="") + (("&r=" + urllib.parse.quote(referer, safe="")) if referer else "")
 
         out = []
         for line in text.splitlines():
@@ -581,6 +512,8 @@ class ThreadedServer(http.server.ThreadingHTTPServer):
 
 def run_server():
     threading.Thread(target=_refresh_livetv, daemon=True).start()
+    bdix_index.start_background_refresh()
+    meta_feeds.start_background_refresh()
     with ThreadedServer(("", PORT), AshTubeHandler) as httpd:
         print(f"[AshTube Server] Listening on http://localhost:{PORT} (Developed by ASRAFUL ISLAM)")
         try:

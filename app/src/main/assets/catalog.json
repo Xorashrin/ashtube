@@ -1,1076 +1,1114 @@
 [
-  {
-    "id": "movie-dune-2",
-    "title": "Dune: Part Two",
-    "category": "movies",
-    "year": "2024",
-    "rating": "8.9",
-    "quality": "4K HDR",
-    "duration": "2h 46m",
-    "genres": "Sci-Fi · Adventure · Action",
-    "backdrop": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family, facing a choice between the love of his life and the fate of the known universe.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed (HQ)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+ {
+  "id": "cm-tt34384900",
+  "imdbId": "tt34384900",
+  "title": "Love of Your Life",
+  "category": "movies",
+  "year": "2026",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "109 min",
+  "genres": "Drama · Romance",
+  "backdrop": "https://images.metahub.space/background/medium/tt34384900/img",
+  "poster": "https://images.metahub.space/poster/small/tt34384900/img",
+  "synopsis": "Maya, a smart, wry nurse, is swept up in an immersive love, that sets her life on a trajectory she never would have imagined.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt27369017",
+  "imdbId": "tt27369017",
+  "title": "Hope",
+  "category": "movies",
+  "year": "2026",
+  "rating": "6.9",
+  "quality": "HD",
+  "duration": "157 min",
+  "genres": "Action · Drama · Horror",
+  "backdrop": "https://images.metahub.space/background/medium/tt27369017/img",
+  "poster": "https://images.metahub.space/poster/small/tt27369017/img",
+  "synopsis": "A mysterious discovery is made on the outskirts of the remote harbor town. The residents find themselves in a desperate fight for survival against something they have never encountered before.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt22084616",
+  "imdbId": "tt22084616",
+  "title": "Spider-Man: Brand New Day",
+  "category": "movies",
+  "year": "2026",
+  "rating": "8.0",
+  "quality": "HD",
+  "duration": "145 min",
+  "genres": "Action · Adventure",
+  "backdrop": "https://images.metahub.space/background/medium/tt22084616/img",
+  "poster": "https://images.metahub.space/poster/small/tt22084616/img",
+  "synopsis": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt15047880",
+  "imdbId": "tt15047880",
+  "title": "Disclosure Day",
+  "category": "movies",
+  "year": "2026",
+  "rating": "6.4",
+  "quality": "HD",
+  "duration": "146 min",
+  "genres": "Action · Mystery · Sci-Fi",
+  "backdrop": "https://images.metahub.space/background/medium/tt15047880/img",
+  "poster": "https://images.metahub.space/poster/small/tt15047880/img",
+  "synopsis": "If you found out we weren't alone, if someone showed you, proved it to you, would that frighten you?",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt32273171",
+  "imdbId": "tt32273171",
+  "title": "The Death of Robin Hood",
+  "category": "movies",
+  "year": "2026",
+  "rating": "6.0",
+  "quality": "HD",
+  "duration": "123 min",
+  "genres": "Action · Adventure · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt32273171/img",
+  "poster": "https://images.metahub.space/poster/small/tt32273171/img",
+  "synopsis": "Grappling with his past after a life of crime and murder, Robin Hood finds himself gravely injured after a battle he thought would be his last. In the hands of a mysterious woman, he is offered a chance at salvation.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt31349844",
+  "imdbId": "tt31349844",
+  "title": "Runner",
+  "category": "movies",
+  "year": "2026",
+  "rating": "6.3",
+  "quality": "HD",
+  "duration": "97 min",
+  "genres": "Action · Comedy · Thriller",
+  "backdrop": "https://images.metahub.space/background/medium/tt31349844/img",
+  "poster": "https://images.metahub.space/poster/small/tt31349844/img",
+  "synopsis": "A former soldier and his unlikely partner become the targets of a ruthless cartel while racing to complete a critical medical delivery and save the life of a little girl.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt27543632",
+  "imdbId": "tt27543632",
+  "title": "The Housemaid",
+  "category": "movies",
+  "year": "2025",
+  "rating": "6.7",
+  "quality": "HD",
+  "duration": "131 min",
+  "genres": "Drama · Mystery · Thriller",
+  "backdrop": "https://images.metahub.space/background/medium/tt27543632/img",
+  "poster": "https://images.metahub.space/poster/small/tt27543632/img",
+  "synopsis": "Millie a struggling young woman becomes live-in maid for a wealthy couple Nina and Andrew. She enters a mansion of secrets, manipulation, and escalating psychological games that pull her into a dangerous relationship dynamic.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt0074285",
+  "imdbId": "tt0074285",
+  "title": "Carrie",
+  "category": "movies",
+  "year": "1976",
+  "rating": "7.4",
+  "quality": "HD",
+  "duration": "98 min",
+  "genres": "Horror",
+  "backdrop": "https://images.metahub.space/background/medium/tt0074285/img",
+  "poster": "https://images.metahub.space/poster/small/tt0074285/img",
+  "synopsis": "A social misfit with psychic powers turns prom night into Hell on Earth.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt12042730",
+  "imdbId": "tt12042730",
+  "title": "Project Hail Mary",
+  "category": "movies",
+  "year": "2026",
+  "rating": "8.2",
+  "quality": "HD",
+  "duration": "157 min",
+  "genres": "Adventure · Comedy · Sci-Fi",
+  "backdrop": "https://images.metahub.space/background/medium/tt12042730/img",
+  "poster": "https://images.metahub.space/poster/small/tt12042730/img",
+  "synopsis": "A science teacher wakes up alone on a spaceship. As his memory returns, he uncovers a mission to stop a mysterious substance killing Earth's sun, and realizes that an unexpected friendship may be the key.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt31170389",
+  "imdbId": "tt31170389",
+  "title": "Evil Dead Burn",
+  "category": "movies",
+  "year": "2026",
+  "rating": "6.3",
+  "quality": "HD",
+  "duration": "110 min",
+  "genres": "Horror",
+  "backdrop": "https://images.metahub.space/background/medium/tt31170389/img",
+  "poster": "https://images.metahub.space/poster/small/tt31170389/img",
+  "synopsis": "After the loss of her husband, a woman seeks solace with her in-laws. As one by one they transform into deadites, she comes to discover that the vows she took in life - survive even in death.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt23112594",
+  "imdbId": "tt23112594",
+  "title": "VisionQuest",
+  "category": "series",
+  "year": "2026",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "50 min",
+  "genres": "Action · Adventure · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt23112594/img",
+  "poster": "https://images.metahub.space/poster/small/tt23112594/img",
+  "synopsis": "Vision is faced with many challenges while trying to regain his memory and humanity.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt17491088",
+  "imdbId": "tt17491088",
+  "title": "The Diplomat",
+  "category": "series",
+  "year": "2023",
+  "rating": "8.0",
+  "quality": "HD",
+  "duration": "50 min",
+  "genres": "Drama · Thriller",
+  "backdrop": "https://images.metahub.space/background/medium/tt17491088/img",
+  "poster": "https://images.metahub.space/poster/small/tt17491088/img",
+  "synopsis": "In the midst of an international crisis, Kate Wyler, a career diplomat, lands in a high-profile job for which she is not suited, with tectonic implications for her marriage and her political future.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt31510819",
+  "imdbId": "tt31510819",
+  "title": "MobLand",
+  "category": "series",
+  "year": "2025",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "47 min",
+  "genres": "Crime · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt31510819/img",
+  "poster": "https://images.metahub.space/poster/small/tt31510819/img",
+  "synopsis": "Power is up for grabs as two warring crime families clash in a battle that threatens to topple empires. In the crossfire stands Harry Da Souza, a street-smart 'fixer' who knows too well where loyalties lie when opposing forces col...",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt5875444",
+  "imdbId": "tt5875444",
+  "title": "Slow Horses",
+  "category": "series",
+  "year": "2022",
+  "rating": "8.4",
+  "quality": "HD",
+  "duration": "46 min",
+  "genres": "Drama · Thriller",
+  "backdrop": "https://images.metahub.space/background/medium/tt5875444/img",
+  "poster": "https://images.metahub.space/poster/small/tt5875444/img",
+  "synopsis": "A dysfunctional team of MI5 agents navigate the espionage world's smoke and mirrors to defend the UK from sinister forces.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt26545992",
+  "imdbId": "tt26545992",
+  "title": "Lanterns",
+  "category": "series",
+  "year": "2026",
+  "rating": "7.8",
+  "quality": "HD",
+  "duration": "53 min",
+  "genres": "Action · Crime · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt26545992/img",
+  "poster": "https://images.metahub.space/poster/small/tt26545992/img",
+  "synopsis": "Lanterns follows new recruit John Stewart and Lantern legend Hal Jordan, two intergalactic cops drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt10986410",
+  "imdbId": "tt10986410",
+  "title": "Ted Lasso",
+  "category": "series",
+  "year": "2020",
+  "rating": "8.7",
+  "quality": "HD",
+  "duration": "43 min",
+  "genres": "Comedy · Drama · Sport",
+  "backdrop": "https://images.metahub.space/background/medium/tt10986410/img",
+  "poster": "https://images.metahub.space/poster/small/tt10986410/img",
+  "synopsis": "American college football coach Ted Lasso is hired to manage AFC Richmond, a struggling English soccer club, and must win over skeptical players, staff, and fans.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt16358384",
+  "imdbId": "tt16358384",
+  "title": "Tulsa King",
+  "category": "series",
+  "year": "2022",
+  "rating": "7.9",
+  "quality": "HD",
+  "duration": "40 min",
+  "genres": "Action · Crime · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt16358384/img",
+  "poster": "https://images.metahub.space/poster/small/tt16358384/img",
+  "synopsis": "After being released from prison after 25 years, New York Mafia capo Dwight \"The General\" Manfredi is exiled to Tulsa, Oklahoma.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt1844624",
+  "imdbId": "tt1844624",
+  "title": "American Horror Story",
+  "category": "series",
+  "year": "2011",
+  "rating": "7.9",
+  "quality": "HD",
+  "duration": "44 min",
+  "genres": "Drama · Horror · Sci-Fi",
+  "backdrop": "https://images.metahub.space/background/medium/tt1844624/img",
+  "poster": "https://images.metahub.space/poster/small/tt1844624/img",
+  "synopsis": "An anthology horror drama series centering on different characters and locations, showcasing different aspects of horror. Created and produced by Ryan Murphy and Brad Falchuk.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt13210838",
+  "imdbId": "tt13210838",
+  "title": "The Gentlemen",
+  "category": "series",
+  "year": "2024",
+  "rating": "8.1",
+  "quality": "HD",
+  "duration": "53 min",
+  "genres": "Crime · Drama",
+  "backdrop": "https://images.metahub.space/background/medium/tt13210838/img",
+  "poster": "https://images.metahub.space/poster/small/tt13210838/img",
+  "synopsis": "When aristocratic Eddie inherits the family estate, he discovers that it's home to a huge weed empire, and its proprietors aren't going anywhere.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "cm-tt0903747",
+  "imdbId": "tt0903747",
+  "title": "Breaking Bad",
+  "category": "series",
+  "year": "2008",
+  "rating": "9.5",
+  "quality": "HD",
+  "duration": "49 min",
+  "genres": "Crime · Drama · Thriller",
+  "backdrop": "https://images.metahub.space/background/medium/tt0903747/img",
+  "poster": "https://images.metahub.space/poster/small/tt0903747/img",
+  "synopsis": "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student to secure his family's future.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "available": true
+ },
+ {
+  "id": "kt-7442",
+  "kitsuId": "7442",
+  "title": "Attack on Titan",
+  "altTitles": [
+   "Attack on Titan",
+   "Shingeki no Kyojin",
+   "AoT"
+  ],
+  "category": "anime",
+  "year": "2013",
+  "rating": "8.4",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/7442/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/7442/large.jpg",
+  "synopsis": "Centuries ago, mankind was slaughtered to near extinction by monstrous humanoid creatures called titans, forcing humans to hide in fear behind enormous concentric walls. What makes these giants truly terrifying is that their taste for human flesh is not born out of hunger but what appears to be out of pleasure. To ensure their survival, the remnants of humanity began living within defensive barriers, resulting in one hundred years without a single titan encounter. However, that fragile calm is soon shattered when a colossal titan manages to breach the supposedly impregnable outer wall, reigniting the fight for survival against the man-eating abominations.\n\nAfter witnessing a horrific personal loss at the hands of the invading creatures, Eren Yeager dedicates his life to their eradication by enlisting into the Survey Corps, an elite military unit that combats the merciless humanoids outside the protection of the walls. Based on Hajime Isayama's award-winning manga, Shingeki no Kyojin follows Eren, along with his adopted sister Mikasa Ackerman and his childhood friend Armin Arlert, as they join the brutal war against the titans and race to discover a way of defeating them before the last walls are breached.\n\n(Source: MAL Rewrite)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 25,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-11469",
+  "kitsuId": "11469",
+  "title": "My Hero Academia",
+  "altTitles": [
+   "My Hero Academia",
+   "Boku no Hero Academia"
+  ],
+  "category": "anime",
+  "year": "2016",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "23 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/11469/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/11469/large.jpg",
+  "synopsis": "What would the world be like if 80 percent of the population manifested extraordinary superpowers called “Quirks” at age four? Heroes and villains would be battling it out everywhere! Becoming a hero would mean learning to use your power, but where would you go to study? U.A. High's Hero Program of course! But what would you do if you were one of the 20 percent who were born Quirkless?\n\nMiddle school student Izuku Midoriya wants to be a hero more than anything, but he hasn't got an ounce of power in him. With no chance of ever getting into the prestigious U.A. High School for budding heroes, his life is looking more and more like a dead end. Then an encounter with All Might, the greatest hero of them all gives him a chance to change his destiny…\n\n(Source: Viz Media)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 13,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-10740",
+  "kitsuId": "10740",
+  "title": "One Punch Man",
+  "altTitles": [
+   "One Punch Man",
+   "One Punch-Man",
+   "OPM",
+   "One-Punch Man"
+  ],
+  "category": "anime",
+  "year": "2015",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/10740/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/10740/large.jpg",
+  "synopsis": "The seemingly ordinary and unimpressive Saitama has a rather unique hobby: being a hero. In order to pursue his childhood dream, he trained relentlessly for three years—and lost all of his hair in the process. Now, Saitama is incredibly powerful, so much so that no enemy is able to defeat him in battle. In fact, all it takes to defeat evildoers with just one punch has led to an unexpected problem—he is no longer able to enjoy the thrill of battling and has become quite bored.\n\nThis all changes with the arrival of Genos, a 19-year-old cyborg, who wishes to be Saitama's disciple after seeing what he is capable of. Genos proposes that the two join the Hero Association in order to become certified heroes that will be recognized for their positive contributions to society, and Saitama, shocked that no one knows who he is, quickly agrees. And thus begins the story of One Punch Man, an action-comedy that follows an eccentric individual who longs to fight strong enemies that can hopefully give him the excitement he once felt and just maybe, he'll become popular in the process.\n\n(Source: MAL Rewrite)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-1376",
+  "kitsuId": "1376",
+  "title": "Death Note",
+  "altTitles": [
+   "Death Note",
+   "DN"
+  ],
+  "category": "anime",
+  "year": "2006",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "23 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/1376/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/1376/large.jpg",
+  "synopsis": "A shinigami, as a god of death, can kill any person—provided they see their victim's face and write their victim's name in a notebook called a Death Note. One day, Ryuk, bored by the shinigami lifestyle and interested in seeing how a human would use a Death Note, drops one into the human realm.\n\nHigh school student and prodigy Light Yagami stumbles upon the Death Note and—since he deplores the state of the world—tests the deadly notebook by writing a criminal's name in it. When the criminal dies immediately following his experiment with the Death Note, Light is greatly surprised and quickly recognizes how devastating the power that has fallen into his hands could be.\n\nWith this divine capability, Light decides to extinguish all criminals in order to build a new world where crime does not exist and people worship him as a god. Police, however, quickly discover that a serial killer is targeting criminals and, consequently, try to apprehend the culprit. To do this, the Japanese investigators count on the assistance of the best detective in the world: a young and eccentric man known only by the name of L.\n\n(Source: MAL Rewrite)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 37,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-49746",
+  "kitsuId": "49746",
+  "title": "Re:ZERO -Starting Life in Another World- Season 4",
+  "altTitles": [
+   "Re:ZERO -Starting Life in Another World- Season 4",
+   "Re:Zero kara Hajimeru Isekai Seikatsu 4th Season"
+  ],
+  "category": "anime",
+  "year": "2026",
+  "rating": "8.8",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/49746/cover_image/large-8e6f277c44545477b95ba45c96d4deb2.jpeg",
+  "poster": "https://media.kitsu.app/anime/49746/poster_image/large-0f3a9212e3228db596c85f9e636c4f34.jpeg",
+  "synopsis": "The fourth season of Re:Zero kara Hajimeru Isekai Seikatsu.\n\nTo save his stricken allies, Subaru faces a deadly desert to find the Sage at Pleiades Watchtower.\n\n(Source: Crunchyroll News)\n\nNote: World Premiere of Episode 1 screened at Lucca Comics &amp; Games 2025 on November 1, 2025, before the Japanese television broadcast.",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 19,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-12",
+  "kitsuId": "12",
+  "title": "One Piece",
+  "altTitles": [
+   "One Piece",
+   "ワンピース"
+  ],
+  "category": "anime",
+  "year": "1999",
+  "rating": "8.4",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/12/cover_image/large-3e72f400a87b5241780c5082f0582611.jpeg",
+  "poster": "https://media.kitsu.app/anime/poster_images/12/large.jpg",
+  "synopsis": "Gol D. Roger was known as the \"Pirate King,\" the strongest and most infamous being to have sailed the Grand Line. The capture and death of Roger by the World Government brought a change throughout the world. His last words before his death revealed the existence of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece—which promises an unlimited amount of riches and fame—and quite possibly the pinnacle of glory and the title of the Pirate King.\nEnter Monkey D. Luffy, a 17-year-old boy who defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate ransacking villages for fun, Luffy’s reason for being a pirate is one of pure wonder: the thought of an exciting adventure that leads him to intriguing people and ultimately, the promised treasure. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach the most coveted of all fortunes—One Piece.\n[Written by MAL Rewrite]",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": null,
+  "status": "current",
+  "airing": {
+   "at": 1792888200
   },
-  {
-    "id": "movie-interstellar",
-    "title": "Interstellar",
-    "category": "movies",
-    "year": "2014",
-    "rating": "8.7",
-    "quality": "4K HDR",
-    "duration": "2h 49m",
-    "genres": "Sci-Fi · Drama · Mystery",
-    "backdrop": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed (Studio)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "movie-oppenheimer",
-    "title": "Oppenheimer",
-    "category": "movies",
-    "year": "2023",
-    "rating": "8.9",
-    "quality": "4K IMAX",
-    "duration": "3h 00m",
-    "genres": "Biography · Drama · History",
-    "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  },
-  {
-    "id": "movie-spiderman-spiderverse",
-    "title": "Spider-Man: Across the Spider-Verse",
-    "category": "movies",
-    "year": "2023",
-    "rating": "8.7",
-    "quality": "4K HDR",
-    "duration": "2h 20m",
-    "genres": "Animation · Action · Adventure",
-    "backdrop": "https://images.unsplash.com/photo-1635805737707-575885ab0820?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1604200213928-ba3cf4fc8436?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash, Miles must redefine what it means to be a hero.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-  },
-  {
-    "id": "movie-the-batman",
-    "title": "The Batman",
-    "category": "movies",
-    "year": "2022",
-    "rating": "7.8",
-    "quality": "4K HDR",
-    "duration": "2h 56m",
-    "genres": "Action · Crime · Drama",
-    "backdrop": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-  },
-  {
-    "id": "movie-avatar-water",
-    "title": "Avatar: The Way of Water",
-    "category": "movies",
-    "year": "2022",
-    "rating": "7.6",
-    "quality": "4K HDR",
-    "duration": "3h 12m",
-    "genres": "Action · Adventure · Fantasy",
-    "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "series-shogun",
-    "title": "Shōgun",
-    "category": "series",
-    "year": "2024",
-    "rating": "8.7",
-    "quality": "4K HDR",
-    "duration": "Season 1 · 10 Eps",
-    "genres": "Adventure · Drama · History",
-    "backdrop": "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "When a mysterious European ship is found marooned in a nearby fishing village, Lord Yoshii Toranaga discovers secrets that could tip the scales of power and devastate his formidable enemies in feudal Japan.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Japanese / English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Chapter One: Anjin",
-            "runtime": "69 min",
-            "thumb": "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "Chapter Two: Servants of Two Masters",
-            "runtime": "58 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          },
-          {
-            "epNum": 3,
-            "title": "Chapter Three: Tomorrow Is Tomorrow",
-            "runtime": "57 min",
-            "thumb": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  },
-  {
-    "id": "series-last-of-us",
-    "title": "The Last of Us",
-    "category": "series",
-    "year": "2023",
-    "rating": "8.8",
-    "quality": "4K HDR",
-    "duration": "Season 1 · 9 Eps",
-    "genres": "Action · Adventure · Drama",
-    "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "After a global pandemic destroys civilization, a hardened survivor takes charge of a 14-year-old girl who may be humanity's last hope.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English (Dolby Atmos)",
-      "Bengali Dubbed"
-    ],
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "When You're Lost in the Darkness",
-            "runtime": "81 min",
-            "thumb": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "Infected",
-            "runtime": "53 min",
-            "thumb": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-  },
-  {
-    "id": "series-stranger-things",
-    "title": "Stranger Things",
-    "category": "series",
-    "year": "2022",
-    "rating": "8.7",
-    "quality": "4K HDR",
-    "duration": "4 Seasons",
-    "genres": "Drama · Fantasy · Horror",
-    "backdrop": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed"
-    ],
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Chapter One: The Vanishing of Will Byers",
-            "runtime": "48 min",
-            "thumb": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "Chapter Two: The Weirdo on Maple Street",
-            "runtime": "55 min",
-            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-  },
-  {
-    "id": "series-breaking-bad",
-    "title": "Breaking Bad",
-    "category": "series",
-    "year": "2013",
-    "rating": "9.5",
-    "quality": "4K Remaster",
-    "duration": "5 Seasons",
-    "genres": "Crime · Drama · Thriller",
-    "backdrop": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family's future.",
-    "isBDIX": true,
-    "audioTracks": [
-      "English 5.1",
-      "Bengali Dubbed (Studio)"
-    ],
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Pilot",
-            "runtime": "58 min",
-            "thumb": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "Cat's in the Bag...",
-            "runtime": "48 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "anime-solo-leveling",
-    "title": "Solo Leveling",
-    "category": "anime",
-    "year": "2024",
-    "rating": "8.6",
-    "quality": "1080p 60fps",
-    "duration": "Season 1 · 12 Eps",
-    "genres": "Anime · Action · Fantasy",
-    "backdrop": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "In a world where hunters must battle deadly monsters to protect mankind, Sung Jinwoo, the weakest hunter of all mankind, finds himself in an endless quest to level up.",
-    "subDub": "Sub / Dub",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "I'm Used to It",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "If I Had One More Chance",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          },
-          {
-            "epNum": 3,
-            "title": "Like a Daily Quest",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  },
-  {
-    "id": "anime-jujutsu-kaisen",
-    "title": "Jujutsu Kaisen",
-    "category": "anime",
-    "year": "2023",
-    "rating": "8.8",
-    "quality": "1080p",
-    "duration": "Season 2 · Shibuya",
-    "genres": "Anime · Supernatural · Action",
-    "backdrop": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A boy swallows a cursed talisman and becomes cursed himself. He enters a shaman's school to locate the demon's remaining body parts and exorcise himself.",
-    "subDub": "Sub / Dub",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Ryomen Sukuna",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "For Myself",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-  },
-  {
-    "id": "anime-attack-on-titan",
-    "title": "Attack on Titan",
-    "category": "anime",
-    "year": "2023",
-    "rating": "9.1",
-    "quality": "1080p BluRay",
-    "duration": "The Final Season",
-    "genres": "Anime · Action · Dark Fantasy",
-    "backdrop": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "After his hometown is destroyed and his mother is killed, young Eren Jaeger vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.",
-    "subDub": "Japanese / English Dub",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "To You, in 2000 Years: The Fall of Shiganshina",
-            "runtime": "25 min",
-            "thumb": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "That Day: The Fall of Shiganshina Part 2",
-            "runtime": "25 min",
-            "thumb": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-  },
-  {
-    "id": "anime-demon-slayer",
-    "title": "Demon Slayer: Kimetsu no Yaiba",
-    "category": "anime",
-    "year": "2024",
-    "rating": "8.6",
-    "quality": "1080p 60fps",
-    "duration": "Hashira Training Arc",
-    "genres": "Anime · Action · Historical",
-    "backdrop": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A youth begins a quest to fight demons and turn his sister human again after his family is slaughtered and his sister turned into a demon.",
-    "subDub": "Sub / Dub",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Cruelty",
-            "runtime": "24 min",
-            "thumb": "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "kdrama-queen-of-tears",
-    "title": "Queen of Tears",
-    "category": "kdrama",
-    "year": "2024",
-    "rating": "8.4",
-    "quality": "1080p HD",
-    "duration": "16 Episodes",
-    "genres": "K-Drama · Romance · Drama",
-    "backdrop": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "The queen of department stores and her small-town husband weather a marital crisis—until love miraculously begins to bloom again.",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Episode 1: The Queens Group",
-            "runtime": "78 min",
-            "thumb": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-          },
-          {
-            "epNum": 2,
-            "title": "Episode 2: A Change of Heart",
-            "runtime": "75 min",
-            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  },
-  {
-    "id": "kdrama-business-proposal",
-    "title": "Business Proposal",
-    "category": "kdrama",
-    "year": "2022",
-    "rating": "8.1",
-    "quality": "1080p HD",
-    "duration": "12 Episodes",
-    "genres": "K-Drama · Comedy · Romance",
-    "backdrop": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "In disguise as her friend, Ha-ri shows up on a blind date to scare away her friend's suitor. But plans go awry when he turns out to be her CEO.",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Episode 1: The Blind Date",
-            "runtime": "60 min",
-            "thumb": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-  },
-  {
-    "id": "kdrama-crash-landing",
-    "title": "Crash Landing on You",
-    "category": "kdrama",
-    "year": "2020",
-    "rating": "8.7",
-    "quality": "1080p HD",
-    "duration": "16 Episodes",
-    "genres": "K-Drama · Romance · Comedy",
-    "backdrop": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A paragliding mishap drops a South Korean heiress into North Korea—and into the life of an army officer who decides he will help her hide.",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "The Whirlwind",
-            "runtime": "70 min",
-            "thumb": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-  },
-  {
-    "id": "kdrama-squid-game",
-    "title": "Squid Game",
-    "category": "kdrama",
-    "year": "2021",
-    "rating": "8.0",
-    "quality": "4K HDR",
-    "duration": "Season 1 · 9 Eps",
-    "genres": "K-Drama · Action · Thriller",
-    "backdrop": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting 45.6 billion won prize awaits with deadly high stakes.",
-    "isSeries": true,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "seasons": [
-      {
-        "seasonNumber": 1,
-        "episodes": [
-          {
-            "epNum": 1,
-            "title": "Red Light, Green Light",
-            "runtime": "60 min",
-            "thumb": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
-            "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-          }
-        ]
-      }
-    ],
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "bangla-kgf-2",
-    "title": "KGF: Chapter 2 (Bangla Dubbed)",
-    "category": "bangla",
-    "year": "2022",
-    "rating": "8.3",
-    "quality": "1080p BluRay",
-    "duration": "2h 48m",
-    "genres": "Action · Crime · Drama",
-    "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "In the blood-soaked Kolar Gold Fields, Rocky's name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (Studio HQ)",
-      "Hindi 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  },
-  {
-    "id": "bangla-hawa",
-    "title": "Hawa (Original Bangla)",
-    "category": "bangla",
-    "year": "2022",
-    "rating": "8.0",
-    "quality": "1080p Web-DL",
-    "duration": "2h 11m",
-    "genres": "Mystery · Drama · Fantasy",
-    "backdrop": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A group of fishermen in the deep Bay of Bengal catch a mysterious young woman in their fishing net, bringing chaos, desire, and doom upon their trawler.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Native Bengali 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/CarnivalOfSouls_524/CarnivalOfSouls.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/pts_banner/manifest.m3u8"
-  },
-  {
-    "id": "bangla-pushpa",
-    "title": "Pushpa: The Rise (Bangla Dubbed)",
-    "category": "bangla",
-    "year": "2021",
-    "rating": "7.6",
-    "quality": "1080p HDR",
-    "duration": "2h 59m",
-    "genres": "Action · Crime · Drama",
-    "backdrop": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A laborer rises through the ranks of a red sandalwood smuggling syndicate, making powerful enemies along the way in Seshachalam forests.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (HQ)",
-      "Telugu 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://ia800300.us.archive.org/1/items/electricsheep-flock-244-7500-8/00244%3D07548%3D07548%3D07548.mp4"
-      }
-    },
-    "videoUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-  },
-  {
-    "id": "bangla-toofan",
-    "title": "Toofan (Bangla Blockbuster)",
-    "category": "bangla",
-    "year": "2024",
-    "rating": "7.9",
-    "quality": "1080p HD",
-    "duration": "2h 25m",
-    "genres": "Action · Crime · Thriller",
-    "backdrop": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "The rise and reign of a notorious 90s underworld kingpin in Dhaka who commands respect, fear, and ultimate loyalty amidst gangland betrayals.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Original Bengali (Dolby Digital)"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/Route_66_1960/Route66.mp4"
-      }
-    },
-    "videoUrl": "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-  },
-  {
-    "id": "bangla-rrr",
-    "title": "RRR (Bangla Dubbed)",
-    "category": "bangla",
-    "year": "2022",
-    "rating": "7.8",
-    "quality": "4K HDR",
-    "duration": "3h 07m",
-    "genres": "Action · Drama · Epic",
-    "backdrop": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
-    "poster": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80",
-    "synopsis": "A fearless revolutionary and an officer in the British force, who once were great friends, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.",
-    "isBDIX": true,
-    "audioTracks": [
-      "Bengali Dubbed (Studio)",
-      "Telugu 5.1"
-    ],
-    "isSeries": false,
-    "resolutions": {
-      "480p": {
-        "size": "420 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "720p": {
-        "size": "850 MB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "1080p": {
-        "size": "1.8 GB",
-        "url": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-      },
-      "4k": {
-        "size": "4.9 GB",
-        "url": "https://archive.org/download/VoyagetoPrehistoricPlanet/VoyagetoPrehistoricPlanet.mp4"
-      }
-    },
-    "videoUrl": "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
-  }
+  "available": true
+ },
+ {
+  "id": "kt-49002",
+  "kitsuId": "49002",
+  "title": "Mushoku Tensei: Jobless Reincarnation Season 3",
+  "altTitles": [
+   "Mushoku Tensei: Jobless Reincarnation Season 3",
+   "Mushoku Tensei: Isekai Ittara Honki Dasu 3rd Season",
+   "Mushoku Tensei III: Isekai Ittara Honki Dasu",
+   "無職転生 Ⅲ ～異世界行ったら本気だす～"
+  ],
+  "category": "anime",
+  "year": "2026",
+  "rating": "8.7",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/49002/cover_image/large-2b36b6f9472d3d6193f597b42f97f013.jpeg",
+  "poster": "https://media.kitsu.app/anime/49002/poster_image/large-726cee92abdf1aba4683dedb5ad6a7d9.jpeg",
+  "synopsis": "The third season of Mushoku Tensei: Isekai Ittara Honki Dasu.",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 14,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-49235",
+  "kitsuId": "49235",
+  "title": "That Time I Got Reincarnated as a Slime Season 4",
+  "altTitles": [
+   "That Time I Got Reincarnated as a Slime Season 4",
+   "Tensei Shitara Slime Datta Ken 4th Season Part 1 & 2",
+   "Tensura 4"
+  ],
+  "category": "anime",
+  "year": "2026",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "24 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/49235/poster_image/large-e16bada49e69db582b723a08447b88dd.jpeg",
+  "poster": "https://media.kitsu.app/anime/49235/poster_image/large-e16bada49e69db582b723a08447b88dd.jpeg",
+  "synopsis": "The fourth season of Tensei Shitara Slime Datta Ken.\n\nDemon Lord Rimuru's dream of creating an alliance between humans and monsters takes a step closer to being realized. As Tempest continues to prosper, Granville Rozzo and his granddaughter, Maribel Rozzo, clash with Demon Lord Rimuru over their plan to protect mankind by ruling over them. Meanwhile, in El Dorado, Demon Lord Leon works toward goals of his own. The awakening of a new Hero draws near!\n\n(Source: Crunchyroll News)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 24,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-6448",
+  "kitsuId": "6448",
+  "title": "Hunter x Hunter (2011)",
+  "altTitles": [
+   "Hunter x Hunter (2011)",
+   "Hunter x Hunter",
+   "HUNTER×HUNTER ハンターハンター",
+   "HxH (2011)",
+   "Hantā Hantā (2011)"
+  ],
+  "category": "anime",
+  "year": "2011",
+  "rating": "8.4",
+  "quality": "HD",
+  "duration": "23 min",
+  "genres": "TV",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/6448/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/6448/large.jpg",
+  "synopsis": "Hunter x Hunter is set in a world where Hunters exist to perform all manner of dangerous tasks like capturing criminals and bravely searching for lost treasures in uncharted territories. Twelve-year-old Gon Freecss is determined to become the best Hunter possible in hopes of finding his father, who was a Hunter himself and had long ago abandoned his young son. However, Gon soon realizes the path to achieving his goals is far more challenging than he could have ever imagined.\n\nAlong the way to becoming an official Hunter, Gon befriends the lively doctor-in-training Leorio, vengeful Kurapika, and rebellious ex-assassin Killua. To attain their own goals and desires, together the four of them take the Hunter Exam, notorious for its low success rate and high probability of death. Throughout their journey, Gon and his friends embark on an adventure that puts them through many hardships and struggles. They will meet a plethora of monsters, creatures, and characters—all while learning what being a Hunter truly means.\n\n(Source: MAL Rewrite)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 148,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kt-11614",
+  "kitsuId": "11614",
+  "title": "Your Name.",
+  "altTitles": [
+   "Your Name.",
+   "Kimi no Na wa."
+  ],
+  "category": "anime",
+  "year": "2016",
+  "rating": "8.3",
+  "quality": "HD",
+  "duration": "106 min",
+  "genres": "MOVIE",
+  "backdrop": "https://media.kitsu.app/anime/cover_images/11614/large.jpg",
+  "poster": "https://media.kitsu.app/anime/poster_images/11614/large.jpg",
+  "synopsis": "From director Makoto Shinkai, the innovative mind behind Voices of a Distant Star and 5 Centimeters Per Second, comes a beautiful masterpiece about time, the thread of fate, and the hearts of two young souls.\n\nThe day the stars fell, two lives changed forever. High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other. Yet, somehow, it works. They build a connection and communicate by leaving notes, messages, and more importantly, an imprint.\n\nWhen a dazzling comet lights up the night’s sky, it dawns on them. They want something more from this connection—a chance to meet, an opportunity to truly know each other. Tugging at the string of fate, they try to find a way to each other. But distance isn’t the only thing keeping them apart. Is their bond strong enough to face the cruel irony of time? Or is their meeting nothing more than a wish upon the stars?\n\n(Source: FUNimation Films)",
+  "isBDIX": true,
+  "audioTracks": [
+   "Japanese",
+   "English Dub"
+  ],
+  "isSeries": false,
+  "remote": true,
+  "episodeCount": 1,
+  "status": "finished",
+  "available": true
+ },
+ {
+  "id": "kk-11923",
+  "kisskhId": 11923,
+  "title": "Perfect Crown",
+  "baseTitle": "Perfect Crown",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1000_and_h563_face/l5F7zrjACILbCwYAozRs74q3W18.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1000_and_h563_face/l5F7zrjACILbCwYAozRs74q3W18.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-535",
+  "kisskhId": 535,
+  "title": "Running Man",
+  "baseTitle": "Running Man",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://wsrv.nl/?url=kocowa-img.imgix.net/images/fada9c86-d4ca-464d-877e-9165da917b51.jpg",
+  "poster": "https://wsrv.nl/?url=kocowa-img.imgix.net/images/fada9c86-d4ca-464d-877e-9165da917b51.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 824,
+  "available": true
+ },
+ {
+  "id": "kk-12255",
+  "kisskhId": 12255,
+  "title": "Our Universe",
+  "baseTitle": "Our Universe",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1066_and_h600_face/eUcFENeB4ggjTsHVPt8IiLIQeXS.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1066_and_h600_face/eUcFENeB4ggjTsHVPt8IiLIQeXS.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-11573",
+  "kisskhId": 11573,
+  "title": "Would You Marry Me?",
+  "baseTitle": "Would You Marry Me?",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1000_and_h563_face/3Ty5vNk6pMzzbe5ua9fTtCdS5R6.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1000_and_h563_face/3Ty5vNk6pMzzbe5ua9fTtCdS5R6.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-11778",
+  "kisskhId": 11778,
+  "title": "Dynamite Kiss",
+  "baseTitle": "Dynamite Kiss",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://serveproxy.com/?url=https://fragrancecdn1.site/0afe5ecb-3a65-4739-b34f-ec9c6eac779b.jpg",
+  "poster": "https://serveproxy.com/?url=https://fragrancecdn1.site/0afe5ecb-3a65-4739-b34f-ec9c6eac779b.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 14,
+  "available": true
+ },
+ {
+  "id": "kk-11604",
+  "kisskhId": 11604,
+  "title": "Can This Love Be Translated?",
+  "baseTitle": "Can This Love Be Translated?",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1000_and_h563_face/tKF2UEeYn7MwU5hYjdhGhX9tT75.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1000_and_h563_face/tKF2UEeYn7MwU5hYjdhGhX9tT75.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-11602",
+  "kisskhId": 11602,
+  "title": "Spirit Fingers",
+  "baseTitle": "Spirit Fingers",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://serveproxy.com/?url=https://fragrancecdn1.site/2e1e1488-bba5-4af2-bebb-c8fb76af6f56.jpg",
+  "poster": "https://serveproxy.com/?url=https://fragrancecdn1.site/2e1e1488-bba5-4af2-bebb-c8fb76af6f56.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-11779",
+  "kisskhId": 11779,
+  "title": "Taxi Driver Season 3",
+  "baseTitle": "Taxi Driver",
+  "season": 3,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1000_and_h563_face/6iDKymMZl9AXAgtk2YvYE58nzKk.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1000_and_h563_face/6iDKymMZl9AXAgtk2YvYE58nzKk.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 16,
+  "available": true
+ },
+ {
+  "id": "kk-11601",
+  "kisskhId": 11601,
+  "title": "The Manipulated",
+  "baseTitle": "The Manipulated",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://serveproxy.com/?url=https://fragrancecdn1.site/64ab55d7-a068-4b55-a152-2865b1808c30.jpg",
+  "poster": "https://serveproxy.com/?url=https://fragrancecdn1.site/64ab55d7-a068-4b55-a152-2865b1808c30.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 12,
+  "available": true
+ },
+ {
+  "id": "kk-7977",
+  "kisskhId": 7977,
+  "title": "Twinkling Watermelon",
+  "baseTitle": "Twinkling Watermelon",
+  "season": 1,
+  "category": "kdrama",
+  "year": "",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "K-Drama",
+  "backdrop": "https://media.themoviedb.org/t/p/w1000_and_h563_face/i45lZLNmLdL4ieR0y9gAo6PJnY1.jpg",
+  "poster": "https://media.themoviedb.org/t/p/w1000_and_h563_face/i45lZLNmLdL4ieR0y9gAo6PJnY1.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [
+   "Korean"
+  ],
+  "isSeries": true,
+  "remote": true,
+  "episodeCount": 16,
+  "available": true
+ },
+ {
+  "id": "cm-tt0074896",
+  "imdbId": "tt0074896",
+  "title": "The Message",
+  "category": "movies",
+  "year": "1977",
+  "rating": "8.1",
+  "quality": "HD",
+  "duration": "178 min",
+  "genres": "Biography · Drama · History",
+  "backdrop": "https://images.metahub.space/background/medium/tt0074896/img",
+  "poster": "https://images.metahub.space/poster/small/tt0074896/img",
+  "synopsis": "Historical fresco recounting the life and times of the Prophet Mohammed, the last of the Abrahamic religion, in the sense that, according to Islam, he completed and sealed the monotheistic revelation made to Abraham.",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1567128536,
+  "available": true
+ },
+ {
+  "id": "cm-tt0070047",
+  "imdbId": "tt0070047",
+  "title": "The Exorcist",
+  "category": "movies",
+  "year": "1973",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt0070047/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZjg3YjE4ZjAtYTdmYS00ZTBkLWE1ZjgtNzAzODUwNzRiYjlmXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1567128517,
+  "available": true
+ },
+ {
+  "id": "cm-tt12751726",
+  "imdbId": "tt12751726",
+  "title": "The Illustrator",
+  "category": "movies",
+  "year": "2020",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt12751726/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BOWFjNGQyZDctOTY1Zi00MTNhLThjMGUtZTA3YzQwYmZjMGRmXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1790239018,
+  "available": true
+ },
+ {
+  "id": "cm-tt9866708",
+  "imdbId": "tt9866708",
+  "title": "Wild Karnataka",
+  "category": "movies",
+  "year": "2020",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt9866708/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BYzBkN2U1ODctYzFhYy00YWRiLTliZjQtMmE1OWQ0N2NlM2FhXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1790204028,
+  "available": true
+ },
+ {
+  "id": "cm-tt22373148",
+  "imdbId": "tt22373148",
+  "title": "Karm Yuddh",
+  "category": "series",
+  "year": "2022",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt22373148/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BN2U5NjhiNzItMGZjZC00ODRmLTkzNDUtOGM5NGI4Y2FjYzE2XkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "addedAt": 1746907787,
+  "available": true
+ },
+ {
+  "id": "cm-tt13854248",
+  "imdbId": "tt13854248",
+  "title": "The Legend of Hanuman",
+  "category": "series",
+  "year": "2021",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt13854248/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZThmZDIwYzEtMmQ1MS00MjhjLWJhYTktNzFkMzZhMzM0ZjNlXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": true,
+  "remote": true,
+  "addedAt": 1744540646,
+  "available": true
+ },
+ {
+  "id": "cm-tt5716302",
+  "imdbId": "tt5716302",
+  "title": "Cinemawala",
+  "category": "movies",
+  "year": "2016",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt5716302/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNTViMjYyNjItYjYwNi00MzA0LTgyNGEtMWFkZGU2ZjI2OTFlXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1744262489,
+  "available": true
+ },
+ {
+  "id": "cm-tt7715202",
+  "imdbId": "tt7715202",
+  "title": "Sarkar",
+  "category": "movies",
+  "year": "2018",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt7715202/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNDUwNTE4OTgtOGVmZC00MzA0LWI2MGMtMDg0MDhkNWI4MDkyXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1744232387,
+  "available": true
+ },
+ {
+  "id": "cm-tt28527967",
+  "imdbId": "tt28527967",
+  "title": "Sentimentaaal",
+  "category": "movies",
+  "year": "2024",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt28527967/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZGUyNzNiOTgtZTZhMy00NzkyLTgwNGMtZTIwY2FmMTM4Zjc5XkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1742756595,
+  "available": true
+ },
+ {
+  "id": "cm-tt30630336",
+  "imdbId": "tt30630336",
+  "title": "Tekka",
+  "category": "movies",
+  "year": "2024",
+  "rating": "N/A",
+  "quality": "HD",
+  "duration": "",
+  "genres": "",
+  "backdrop": "https://images.metahub.space/background/medium/tt30630336/img",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZDZiNzZkNWYtNDgwZi00NzU3LTkzODItYmM4YWI0YWI3ZmZiXkEyXkFqcGc@._V1_SX250.jpg",
+  "synopsis": "",
+  "isBDIX": true,
+  "audioTracks": [],
+  "isSeries": false,
+  "remote": true,
+  "addedAt": 1735703619,
+  "available": true
+ }
 ]

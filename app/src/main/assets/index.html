@@ -90,68 +90,15 @@
           <div class="section-title-wrap">
             <h3 class="section-title">Continue Watching</h3>
           </div>
-          <span class="view-all-link">History &rsaquo;</span>
+          <span class="view-all-link" id="clearHistoryLink">Clear &rsaquo;</span>
         </div>
         <div class="horizontal-scroller" id="continueWatchingRail">
           <!-- Populated dynamically via API -->
         </div>
       </section>
 
-      <!-- Trending on BDIX Row -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <h3 class="section-title">Trending on BDIX</h3>
-            <span class="section-tag">Ultra-Speed</span>
-          </div>
-          <span class="view-all-link" data-target="movies">View All &rsaquo;</span>
-        </div>
-        <div class="horizontal-scroller" id="trendingBdixRail">
-          <!-- Populated dynamically via API -->
-        </div>
-      </section>
-
-      <!-- Latest Anime Simulcasts Row -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <h3 class="section-title">Anime Simulcasts</h3>
-            <span class="section-tag" style="background:rgba(225,0,255,0.15);color:#E100FF;border-color:rgba(225,0,255,0.3)">Sub &amp; Dub</span>
-          </div>
-          <span class="view-all-link" data-target="anime">View All &rsaquo;</span>
-        </div>
-        <div class="horizontal-scroller" id="animeRail">
-          <!-- Populated dynamically via API -->
-        </div>
-      </section>
-
-      <!-- Top Korean Dramas Row -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <h3 class="section-title">Popular K-Dramas</h3>
-            <span class="section-tag" style="background:rgba(255,179,0,0.15);color:#FFB300;border-color:rgba(255,179,0,0.3)">tvN &amp; JTBC</span>
-          </div>
-          <span class="view-all-link" data-target="kdrama">View All &rsaquo;</span>
-        </div>
-        <div class="horizontal-scroller" id="kdramaRail">
-          <!-- Populated dynamically via API -->
-        </div>
-      </section>
-
-      <!-- Bangla Dubbed Movies Row -->
-      <section class="content-section">
-        <div class="section-header">
-          <div class="section-title-wrap">
-            <h3 class="section-title">Bangla Dubbed &amp; Regional</h3>
-            <span class="section-tag" style="background:rgba(0,242,254,0.15);color:#00F2FE;border-color:rgba(0,242,254,0.3)">Dual Audio</span>
-          </div>
-          <span class="view-all-link" data-target="bangla">View All &rsaquo;</span>
-        </div>
-        <div class="horizontal-scroller" id="banglaDubbedRail">
-          <!-- Populated dynamically via API -->
-        </div>
-      </section>
+      <!-- Rails from /api/home (trending, new on BDIX, airing anime countdown, K-Drama, coming soon, Bangla) -->
+      <div id="dynamicRails"></div>
 
     </main>
 
@@ -198,6 +145,10 @@
         </div>
         <div class="bdix-servers-badges-row" id="bdixServersBadgesRow">
           <!-- Populated dynamically with live latency badges -->
+        </div>
+        <div class="backend-url-row">
+          <input type="url" id="backendUrlInput" placeholder="Backend server, e.g. http://192.168.0.10:8000" autocomplete="off" spellcheck="false">
+          <button class="scan-bdix-btn" id="saveBackendUrlBtn" title="Save backend server address"><span>Save</span></button>
         </div>
       </section>
 

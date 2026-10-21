@@ -2346,3 +2346,14 @@ input:checked + .slider:before {
 .dl-option-q { font-weight: 700; font-size: 15px; }
 .dl-option-meta { font-size: 11px; color: var(--text-muted); }
 #qualityOptionsContainer { display: flex; flex-direction: column; gap: 10px; padding: 4px 0 12px; overflow-y: auto; }
+
+
+/* Countdown + availability badges */
+.countdown-chip {
+  position: absolute; left: 6px; bottom: 6px; right: 6px;
+  padding: 3px 6px; border-radius: 8px; text-align: center;
+  font-size: 10px; font-weight: 700; letter-spacing: .02em;
+  background: rgba(7, 8, 13, 0.82); color: var(--accent-cyan);
+  border: 1px solid var(--border-glow); backdrop-filter: blur(6px);
+}
+.poster-badge.soon { background: rgba(255, 179, 0, 0.18); color: var(--accent-gold); border-color: rgba(255, 179, 0, 0.35); }

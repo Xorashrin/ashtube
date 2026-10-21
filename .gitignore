@@ -33,3 +33,6 @@ downloads/
 # OS artifacts
 .DS_Store
 Thumbs.db
+
+# Runtime feed snapshot (feeds_seed.json is the shipped bootstrap)
+feeds_cache.json

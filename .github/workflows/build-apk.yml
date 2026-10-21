@@ -54,10 +54,10 @@ jobs:
           mkdir -p release-apks
           if [ -f app/build/outputs/apk/release/app-release.apk ]; then
             cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube.apk
-            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v1.3.0-release.apk
+            cp app/build/outputs/apk/release/app-release.apk release-apks/AshTube-v2.0.0-release.apk
           fi
           if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v1.3.0-debug.apk
+            cp app/build/outputs/apk/debug/app-debug.apk release-apks/AshTube-v2.0.0-debug.apk
           fi
           echo "=== Generated APK Files & Sizes ==="
           ls -lh release-apks/
@@ -67,7 +67,7 @@ jobs:
       - name: Upload AshTube APK Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: AshTube-v1.3.0-APK
+          name: AshTube-v2.0.0-APK
           path: release-apks/*.apk
           retention-days: 30
 
@@ -75,20 +75,20 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.3.0
-          name: "AshTube v1.3.0 — Verified Working Release APK"
+          tag_name: v2.0.0
+          name: "AshTube v2.0.0 — Real Source Engine"
           body: |
-            ### AshTube — Stream & Multi-Thread Download (Verified Working Release)
+            ### AshTube v2.0.0 — Real Source Engine
             **Developed by ASRAFUL ISLAM**
 
-            #### 🚀 Highlights in v1.3.0:
-            - **Guaranteed Installation:** Signed with official RSA-2048 Keystore (`CN=ASRAFUL ISLAM`) with dual v1 (JAR) and v2 (Full APK) schemes.
-            - **Broad Compatibility:** `minSdk 21` (supports Android 5.0 through 14+).
-            - **High-Performance Sources:** Real-time BDIX search, live HLS manifests, and updated UI styling.
-            - **Developer Welcome Screen:** Prominently displays "Developed by ASRAFUL ISLAM".
+            - **BDIX index engine:** 8 BDIX servers (DhakaFlix x5, Discovery FTP, CTGFun, FTP-146) crawled into a local SQLite index, instant title lookups.
+            - **Verified matching:** exact title + year + season/episode, live Range probe, and real-duration check, so a thumbnail never opens different content.
+            - **HiAnime** sub/dub HLS with subtitles, **Cinemeta / Kitsu / kisskh / TVMaze** live catalogs, upcoming-episode countdowns.
+            - Seek, pause, resume and multi-thread download on every source; stream proxy for CORS and failover.
+            - Run the backend with `python3 server.py` and enter its address in the app (Live TV tab).
 
-            #### 📲 Download:
-            - **Recommended:** Download **[AshTube.apk](https://github.com/Xorashrin/ashtube/releases/download/v1.3.0/AshTube.apk)** (~6.5 MB).
+            #### Download
+            - **[AshTube.apk](https://github.com/Xorashrin/ashtube/releases/download/v2.0.0/AshTube.apk)**
           files: release-apks/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

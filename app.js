@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return location.protocol.startsWith('http') ? '' : 'http://localhost:8000';
   })();
   const apiUrl = (path) => API_BASE + path;
-  const proxied = (url) => apiUrl('/api/proxy?u=' + encodeURIComponent(url));
+  const proxied = (url, referer) => apiUrl('/api/proxy?u=' + encodeURIComponent(url) + (referer ? '&r=' + encodeURIComponent(referer) : ''));
 
   function fetchJson(path, options, timeoutMs = 20000) {
     const ctrl = new AbortController();
@@ -33,183 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 1. Unified Catalog Data
   // ==========================================================================
-  let CATALOG_DATA = [
-    {
-      id: 'movie-1',
-      title: 'Dune: Part Two',
-      category: 'movies',
-      year: '2024',
-      rating: '8.9',
-      quality: '4K HDR',
-      duration: '2h 46m',
-      genres: 'Sci-Fi · Adventure · Action',
-      backdrop: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family, facing a choice between the love of his life and the fate of the known universe.',
-      isBDIX: true,
-      audioTracks: ['English 5.1', 'Bengali Dubbed'],
-      isSeries: false
-    },
-    {
-      id: 'movie-2',
-      title: 'Interstellar',
-      category: 'movies',
-      year: '2014',
-      rating: '8.7',
-      quality: '4K HDR',
-      duration: '2h 49m',
-      genres: 'Sci-Fi · Drama · Mystery',
-      backdrop: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.',
-      isBDIX: true,
-      audioTracks: ['English (Original)', 'Bengali Dubbed (HQ)'],
-      isSeries: false
-    },
-    {
-      id: 'series-1',
-      title: 'The Last Kingdom',
-      category: 'series',
-      year: '2023',
-      rating: '8.5',
-      quality: '1080p HD',
-      duration: '5 Seasons',
-      genres: 'Action · Drama · History',
-      backdrop: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'As Alfred the Great defends his kingdom from Norse invaders, Uhtred—born a Saxon but raised by Vikings—seeks to claim his ancestral birthright.',
-      isBDIX: true,
-      isSeries: true,
-      seasons: [
-        {
-          seasonNumber: 1,
-          episodes: [
-            { epNum: 1, title: 'Arrival on Saxon Soil', runtime: '54 min', thumb: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=200&q=80' },
-            { epNum: 2, title: 'The Oath of Loyalty', runtime: '58 min', thumb: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=200&q=80' },
-            { epNum: 3, title: 'Shield Wall at Dawn', runtime: '52 min', thumb: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=200&q=80' }
-          ]
-        },
-        {
-          seasonNumber: 2,
-          episodes: [
-            { epNum: 1, title: 'Reckoning at Edington', runtime: '56 min', thumb: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=200&q=80' }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'anime-1',
-      title: 'Solo Leveling',
-      category: 'anime',
-      year: '2024',
-      rating: '8.6',
-      quality: '1080p 60fps',
-      duration: 'Season 1 · 12 Eps',
-      genres: 'Anime · Action · Fantasy',
-      backdrop: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'In a world where hunters must battle deadly monsters to protect mankind, Sung Jinwoo, the weakest hunter of all mankind, finds himself in an endless quest to level up.',
-      subDub: 'Sub / Dub',
-      isSeries: true,
-      seasons: [
-        {
-          seasonNumber: 1,
-          episodes: [
-            { epNum: 1, title: 'I\'m Used to It', runtime: '24 min', thumb: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=200&q=80' },
-            { epNum: 2, title: 'If I Had One More Chance', runtime: '24 min', thumb: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=200&q=80' },
-            { epNum: 3, title: 'Like a Daily Quest', runtime: '24 min', thumb: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=200&q=80' }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'anime-2',
-      title: 'Jujutsu Kaisen',
-      category: 'anime',
-      year: '2023',
-      rating: '8.8',
-      quality: '1080p',
-      duration: 'Season 2 · Shibuya',
-      genres: 'Anime · Supernatural · Action',
-      backdrop: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'A boy swallows a cursed talisman and becomes cursed himself. He enters a shaman\'s school to be able to locate the demon\'s other body parts and exorcise himself.',
-      subDub: 'Sub / Dub',
-      isSeries: true,
-      seasons: [
-        {
-          seasonNumber: 1,
-          episodes: [
-            { epNum: 1, title: 'Ryomen Sukuna', runtime: '24 min', thumb: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=200&q=80' }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'kdrama-1',
-      title: 'Queen of Tears',
-      category: 'kdrama',
-      year: '2024',
-      rating: '8.4',
-      quality: '1080p HD',
-      duration: '16 Episodes',
-      genres: 'K-Drama · Romance · Drama',
-      backdrop: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'The queen of department stores and her small-town husband weather a marital crisis—until love miraculously begins to bloom again.',
-      isSeries: true,
-      seasons: [
-        {
-          seasonNumber: 1,
-          episodes: [
-            { epNum: 1, title: 'Episode 1: The Queens Group', runtime: '78 min', thumb: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80' },
-            { epNum: 2, title: 'Episode 2: A Change of Heart', runtime: '75 min', thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80' }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'bangla-1',
-      title: 'KGF: Chapter 2 (Bangla Dubbed)',
-      category: 'bangla',
-      year: '2022',
-      rating: '8.3',
-      quality: '1080p BluRay',
-      duration: '2h 48m',
-      genres: 'Action · Crime · Drama',
-      backdrop: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
-      poster: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
-      synopsis: 'In the blood-soaked Kolar Gold Fields, Rocky\'s name strikes fear into his foes. While his allies look up to him, the government sees him as a threat to law and order.',
-      isBDIX: true,
-      audioTracks: ['Bengali Dubbed (Studio HQ)', 'Hindi 5.1'],
-      isSeries: false
-    }
-  ];
-
-  // Continue Watching Mock Data
-  const CONTINUE_WATCHING = [
-    {
-      id: 'movie-1',
-      title: 'Dune: Part Two',
-      progress: 65,
-      meta: 'S1:E2 · 28m left',
-      thumb: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=300&q=80'
-    },
-    {
-      id: 'anime-1',
-      title: 'Solo Leveling',
-      progress: 40,
-      meta: 'Ep 6 · 14m left',
-      thumb: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=300&q=80'
-    },
-    {
-      id: 'kdrama-1',
-      title: 'Queen of Tears',
-      progress: 85,
-      meta: 'Ep 8 · 11m left',
-      thumb: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80'
-    }
-  ];
+  let CATALOG_DATA = [];
 
   // Live TV Channels Data (Dynamic with fallback)
   let LIVE_CHANNELS = [];
@@ -219,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   let currentActiveTab = 'home';
   let currentActiveCategory = 'all';
-  let activeMediaItem = CATALOG_DATA[0];
+  let activeMediaItem = null;
+  let heroItem = null;
   let downloadPollingInterval = null;
 
   // Video Player Elements
@@ -261,71 +86,152 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 3. Render Catalog Rows & Sections
   // ==========================================================================
+  // ---- item registry: every rendered card resolves back to its full item (home rails, search, explore)
+  const ITEMS = new Map();
+  const register = (items) => (items || []).forEach(i => i && i.id && ITEMS.set(i.id, i));
+  const lookupItem = (id) => ITEMS.get(id) || CATALOG_DATA.find(c => c.id === id);
+
   function renderAllSections() {
     renderContinueWatching();
-    renderRail('trendingBdixRail', CATALOG_DATA.filter(i => i.isBDIX));
-    renderRail('animeRail', CATALOG_DATA.filter(i => i.category === 'anime'));
-    renderRail('kdramaRail', CATALOG_DATA.filter(i => i.category === 'kdrama'));
-    renderRail('banglaDubbedRail', CATALOG_DATA.filter(i => i.category === 'bangla'));
     renderLiveTvGrid(LIVE_CHANNELS);
     fetchDownloadsList();
   }
 
+  // ---- real "Continue Watching" (saved by the player, stored on this device)
+  const PROGRESS_KEY = 'ashtube_progress';
+  const readProgress = () => { try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '[]'); } catch (e) { return []; } };
+  const writeProgress = (list) => { try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(list.slice(0, 20))); } catch (e) { /* storage unavailable */ } };
+
+  function saveProgress(force = false) {
+    if (!activePlayback || !activePlayback.item || !videoPlayer.duration || videoPlayer.currentTime < 5) return;
+    const now = Date.now();
+    if (!force && now - (saveProgress.last || 0) < 5000) return;
+    saveProgress.last = now;
+    const it = activePlayback.item;
+    const key = `${it.id}:${activePlayback.season || 1}:${activePlayback.episode || 1}`;
+    const list = readProgress().filter(p => p.key !== key);
+    const pct = videoPlayer.currentTime / videoPlayer.duration;
+    if (pct < 0.95) {
+      list.unshift({ key, pos: videoPlayer.currentTime, dur: videoPlayer.duration, at: now,
+                     season: activePlayback.season || 1, episode: activePlayback.episode || 1,
+                     item: { id: it.id, title: it.title, poster: it.poster, backdrop: it.backdrop, category: it.category, year: it.year, isSeries: it.isSeries } });
+    }
+    writeProgress(list);
+  }
+
   function renderContinueWatching() {
+    const section = document.getElementById('continueWatchingSection');
     const rail = document.getElementById('continueWatchingRail');
-    rail.innerHTML = CONTINUE_WATCHING.map(item => `
-      <div class="resume-card" data-id="${item.id}">
+    const list = readProgress();
+    section.style.display = list.length ? '' : 'none';
+    rail.innerHTML = list.map(p => `
+      <div class="resume-card" data-key="${escapeHtml(p.key)}">
         <div class="resume-thumb-wrap">
-          <img class="resume-thumb" src="${item.thumb}" alt="${item.title}" loading="lazy">
-          <div class="play-overlay-mini">
-            <div class="play-circle-sm">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" style="width: ${item.progress}%;"></div>
-          </div>
+          <img class="resume-thumb" src="${escapeHtml(p.item.backdrop || p.item.poster || '')}" alt="${escapeHtml(p.item.title)}" loading="lazy">
+          <div class="play-overlay-mini"><div class="play-circle-sm"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <div class="progress-track"><div class="progress-fill" style="width: ${Math.round(100 * p.pos / p.dur)}%;"></div></div>
         </div>
         <div class="resume-info">
-          <div class="resume-title">${item.title}</div>
-          <div class="resume-meta">${item.meta}</div>
+          <div class="resume-title">${escapeHtml(p.item.title)}</div>
+          <div class="resume-meta">${p.item.isSeries ? `S${p.season}:E${p.episode} · ` : ''}${Math.max(1, Math.round((p.dur - p.pos) / 60))}m left</div>
         </div>
       </div>
     `).join('');
-
     rail.querySelectorAll('.resume-card').forEach(card => {
       card.addEventListener('click', () => {
-        const item = CATALOG_DATA.find(c => c.id === card.dataset.id);
+        const p = readProgress().find(x => x.key === card.dataset.key);
+        if (!p) return;
+        ITEMS.set(p.item.id, Object.assign({}, ITEMS.get(p.item.id) || {}, p.item));
+        playMedia(ITEMS.get(p.item.id), p.season, p.episode, p.item.isSeries ? `Season ${p.season} · Episode ${p.episode}` : '', p.pos);
+      });
+    });
+  }
+  document.getElementById('clearHistoryLink').addEventListener('click', () => { writeProgress([]); renderContinueWatching(); });
+
+  // ---- poster cards, home rails and countdown chips
+  let clockOffset = 0;   // server time minus device time, so countdowns are right even with a wrong phone clock
+
+  function airTimeOf(item) {
+    if (item.airing && item.airing.at) return item.airing.at;
+    if (item.releaseDate) { const t = Date.parse(item.releaseDate); if (t) return Math.floor(t / 1000); }
+    return 0;
+  }
+
+  function posterCardHtml(item) {
+    const at = airTimeOf(item);
+    const future = at && at > Date.now() / 1000 + clockOffset;
+    const badge = item.available === false
+      ? '<span class="poster-badge soon">Not hosted yet</span>'
+      : (item.isBDIX ? '<span class="poster-badge bdix">BDIX</span>' : `<span class="poster-badge">${escapeHtml(item.quality || 'HD')}</span>`);
+    const epLabel = item.airing && item.airing.episode ? `Ep ${item.airing.episode}` : (item.releaseDate ? 'Premiere' : '');
+    return `
+      <div class="poster-card" data-id="${escapeHtml(item.id)}">
+        <div class="poster-image-wrap">
+          <img class="poster-image" src="${escapeHtml(item.poster || '')}" alt="${escapeHtml(item.title)}" loading="lazy">
+          ${badge}
+          ${future ? `<span class="countdown-chip" data-at="${at}" data-label="${escapeHtml(epLabel)}"></span>` : ''}
+        </div>
+        <div class="poster-info">
+          <div class="poster-title">${escapeHtml(item.title)}</div>
+          <div class="poster-meta"><span>${escapeHtml(String(item.year || ''))}</span><span>★ ${escapeHtml(String(item.rating || 'N/A'))}</span></div>
+        </div>
+      </div>`;
+  }
+
+  function bindPosterClicks(container) {
+    container.querySelectorAll('.poster-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const item = lookupItem(card.dataset.id);
         if (item) openDetailModal(item);
       });
     });
   }
 
-  function renderRail(railId, items) {
-    const rail = document.getElementById(railId);
-    if (!rail) return;
-    rail.innerHTML = items.map(item => `
-      <div class="poster-card" data-id="${item.id}">
-        <div class="poster-image-wrap">
-          <img class="poster-image" src="${item.poster}" alt="${item.title}" loading="lazy">
-          ${item.isBDIX ? `<span class="poster-badge bdix">BDIX</span>` : `<span class="poster-badge">${item.quality}</span>`}
-          ${item.subDub ? `<span class="subdub-badge">${item.subDub}</span>` : ''}
-        </div>
-        <div class="poster-info">
-          <div class="poster-title">${item.title}</div>
-          <div class="poster-meta">
-            <span>${item.year}</span>
-            <span>★ ${item.rating}</span>
+  function renderHomeRails(rails) {
+    const host = document.getElementById('dynamicRails');
+    if (!host) return;
+    host.innerHTML = rails.map(r => `
+      <section class="content-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h3 class="section-title">${escapeHtml(r.title)}</h3>
+            ${r.countdown ? '<span class="section-tag">Live Countdown</span>' : ''}
           </div>
         </div>
-      </div>
+        <div class="horizontal-scroller" data-rail="${escapeHtml(r.id)}">${r.items.map(posterCardHtml).join('')}</div>
+      </section>
     `).join('');
+    rails.forEach(r => register(r.items));
+    bindPosterClicks(host);
+    tickCountdowns();
+  }
 
-    rail.querySelectorAll('.poster-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const item = CATALOG_DATA.find(c => c.id === card.dataset.id);
-        if (item) openDetailModal(item);
-      });
+  function formatCountdown(sec) {
+    if (sec <= 0) return 'Aired';
+    const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600), m = Math.floor(sec % 3600 / 60), s = Math.floor(sec % 60);
+    if (d > 0) return `${d}d ${h}h ${String(m).padStart(2, '0')}m`;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function tickCountdowns() {
+    const nowSec = Date.now() / 1000 + clockOffset;
+    document.querySelectorAll('.countdown-chip').forEach(el => {
+      const left = Number(el.dataset.at) - nowSec;
+      el.textContent = `${el.dataset.label ? el.dataset.label + ' · ' : ''}${formatCountdown(left)}`;
+    });
+  }
+  setInterval(tickCountdowns, 1000);
+
+  function loadHome() {
+    return fetchJson('/api/home', null, 15000).then(res => {
+      if (res.success && res.rails && res.rails.length) {
+        clockOffset = (res.now || 0) - Date.now() / 1000;
+        renderHomeRails(res.rails);
+        const first = res.rails[0].items[0];
+        if (first) updateHeroSpotlight(first);
+        return true;
+      }
+      return false;
     });
   }
 
@@ -333,28 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('exploreCatalogGrid');
     const countLabel = document.getElementById('catalogResultsCount');
     countLabel.textContent = `Showing ${items.length} Titles`;
-    grid.innerHTML = items.map(item => `
-      <div class="poster-card" data-id="${item.id}">
-        <div class="poster-image-wrap">
-          <img class="poster-image" src="${escapeHtml(item.poster || '')}" alt="${escapeHtml(item.title)}" loading="lazy">
-          <span class="poster-badge ${item.isBDIX ? 'bdix' : ''}">${escapeHtml(item.quality || 'HD')}</span>
-        </div>
-        <div class="poster-info">
-          <div class="poster-title">${escapeHtml(item.title)}</div>
-          <div class="poster-meta">
-            <span>${escapeHtml(String(item.year || ''))}</span>
-            <span>★ ${escapeHtml(String(item.rating || 'N/A'))}</span>
-          </div>
-        </div>
-      </div>
-    `).join('');
-
-    grid.querySelectorAll('.poster-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const item = items.find(c => c.id === card.dataset.id) || CATALOG_DATA.find(c => c.id === card.dataset.id);
-        if (item) openDetailModal(item);
-      });
-    });
+    register(items);
+    grid.innerHTML = items.map(posterCardHtml).join('');
+    bindPosterClicks(grid);
   }
 
   let currentLiveTvCategory = 'all';
@@ -487,12 +374,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================================
   // 4b. Source resolution (backend: Discovery FTP / Cinemeta / Consumet / aniwatch)
   // ==========================================================================
-  const resolveCache = new Map();
+  // One in-flight/cached request per (title, season, episode); detail sheets prefetch it so Play feels instant.
+  const resolvePromises = new Map();
 
-  function resolveMedia(item, season = 1, episode = 1) {
+  function fetchResolved(item, season, episode) {
     const key = `${item.id}:${season}:${episode}`;
-    if (resolveCache.has(key)) return Promise.resolve(resolveCache.get(key));
-    showToast(`Finding best source for ${item.title}…`);
+    if (resolvePromises.has(key)) return resolvePromises.get(key);
     const qs = new URLSearchParams({
       id: item.id,
       category: item.category || '',
@@ -502,22 +389,33 @@ document.addEventListener('DOMContentLoaded', () => {
       season: String(season),
       episode: String(episode)
     });
-    return fetchJson(`/api/stream/resolve?${qs.toString()}`, null, 90000)
+    const p = fetchJson(`/api/stream/resolve?${qs.toString()}`, null, 90000)
       .then(res => {
-        if (!res.success || !res.resolved || !res.resolved.sources || !res.resolved.sources.length) {
-          showToast(res.error || 'No source currently hosts this title');
-          return null;
-        }
-        resolveCache.set(key, res.resolved);
-        return res.resolved;
+        const ok = res.success && res.resolved && res.resolved.sources && res.resolved.sources.length;
+        if (!ok) resolvePromises.delete(key);   // negative answers are not kept: the index may refresh
+        return { resolved: ok ? res.resolved : null, error: res.error || '' };
       })
       .catch(err => {
-        showToast(err && err.name === 'AbortError' ? 'Source lookup timed out — try again' : 'Backend server unreachable');
-        return null;
+        resolvePromises.delete(key);
+        return { resolved: null, error: err && err.name === 'AbortError' ? 'Source lookup timed out — try again' : 'Backend server unreachable' };
       });
+    resolvePromises.set(key, p);
+    return p;
   }
 
-  function playMedia(item, season = 1, episode = 1, subtitle = '') {
+  function prefetchResolve(item, season = 1, episode = 1) {
+    if (item && item.available !== false) fetchResolved(item, season, episode);
+  }
+
+  function resolveMedia(item, season = 1, episode = 1) {
+    showToast(`Finding best source for ${item.title}…`);
+    return fetchResolved(item, season, episode).then(r => {
+      if (!r.resolved) showToast(r.error || 'No source currently hosts this title');
+      return r.resolved;
+    });
+  }
+
+  function playMedia(item, season = 1, episode = 1, subtitle = '', startAt = 0) {
     resolveMedia(item, season, episode).then(resolved => {
       if (!resolved) return;
       const best = resolved.sources.find(src => src.url === resolved.stream_url) || resolved.sources[0];
@@ -526,8 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
         sub: subtitle || `${best.quality} · ${best.provider}${best.bdix ? ' · BDIX' : ''}`,
         videoUrl: best.url,
         isHls: best.hls,
+        referer: best.referer || '',
         sources: resolved.sources,
-        audioTracks: resolved.audio_tracks
+        audioTracks: resolved.audio_tracks,
+        item, season, episode, startAt
       });
     });
   }
@@ -921,13 +821,16 @@ document.addEventListener('DOMContentLoaded', () => {
           searchInput.value = q;
           executeSearch(q);
         } else if (type === 'media') {
-          const found = CATALOG_DATA.find(c => c.id === item.dataset.id);
+          const found = lookupItem(item.dataset.id);
           if (found) {
             saveSearchHistory(found.title);
             searchInput.value = found.title;
             clearSearchBtn.style.display = 'flex';
             hideSuggestionsDropdown();
             openDetailModal(found);
+          } else {
+            searchInput.value = item.dataset.title || '';
+            executeSearch(searchInput.value);
           }
         }
       });
@@ -958,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderLocalFallbackSuggestions(query) {
     const q = query.toLowerCase();
     const titles = CATALOG_DATA.filter(item => 
-      item.title.toLowerCase().includes(q) || item.genres.toLowerCase().includes(q)
+      item.title.toLowerCase().includes(q) || (item.genres || '').toLowerCase().includes(q)
     ).slice(0, 5);
 
     const phrases = [];
@@ -1042,7 +945,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.addEventListener('click', () => {
         const type = item.dataset.type;
         if (type === 'media') {
-          const found = CATALOG_DATA.find(c => c.id === item.dataset.id);
+          const found = lookupItem(item.dataset.id);
           if (found) {
             saveSearchHistory(found.title);
             searchInput.value = found.title;
@@ -1099,8 +1002,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = query.toLowerCase();
     const results = CATALOG_DATA.filter(item => 
       item.title.toLowerCase().includes(q) ||
-      item.genres.toLowerCase().includes(q) ||
-      item.synopsis.toLowerCase().includes(q) ||
+      (item.genres || '').toLowerCase().includes(q) ||
+      (item.synopsis || '').toLowerCase().includes(q) ||
       (item.category && item.category.toLowerCase().includes(q)) ||
       (item.audioTracks && item.audioTracks.some(t => t.toLowerCase().includes(q)))
     );
@@ -1196,14 +1099,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openDetailModal(item) {
     activeMediaItem = item;
-    document.getElementById('detailBannerImg').src = item.backdrop;
+    document.getElementById('detailBannerImg').src = item.backdrop || item.poster || '';
     document.getElementById('detailMainTitle').textContent = item.title;
-    document.getElementById('detailYear').textContent = item.year;
-    document.getElementById('detailQualityBadge').textContent = item.quality;
-    document.getElementById('detailRating').textContent = `IMDb ${item.rating} ★`;
-    document.getElementById('detailDuration').textContent = item.duration;
-    document.getElementById('detailGenres').textContent = item.genres;
-    document.getElementById('detailSynopsis').textContent = item.synopsis;
+    document.getElementById('detailYear').textContent = item.year || '';
+    document.getElementById('detailQualityBadge').textContent = item.available === false ? 'Not hosted yet' : (item.quality || 'HD');
+    document.getElementById('detailRating').textContent = `${item.rating || 'N/A'} ★`;
+    document.getElementById('detailDuration').textContent = item.duration || '';
+    document.getElementById('detailGenres').textContent = item.genres || '';
+    document.getElementById('detailSynopsis').textContent = item.synopsis || '';
 
     const seasonWrapper = document.getElementById('seasonSelectorWrapper');
     const seasonPillsBar = document.getElementById('seasonPillsBar');
@@ -1232,10 +1135,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     detailModal.classList.add('open');
+    const firstSeason = item.isSeries && item.seasons && item.seasons[0];
+    if (firstSeason && firstSeason.episodes[0]) prefetchResolve(item, firstSeason.seasonNumber, firstSeason.episodes[0].epNum);
+    else if (!item.isSeries) prefetchResolve(item);
 
     // Search results from Cinemeta arrive without episode lists: load them on demand.
-    if (item.remote && item.isSeries && !item.seasons) {
-      fetchJson(`/api/media/${encodeURIComponent(item.id)}?type=series`).then(res => {
+    if (item.remote && item.isSeries && !item.seasons && !String(item.id).startsWith('tv-')) {
+      fetchJson(`/api/media/${encodeURIComponent(item.id)}?type=series`, null, 25000).then(res => {
         if (res.success && res.media && res.media.seasons && activeMediaItem === item) {
           Object.assign(item, res.media);
           openDetailModal(item);
@@ -1262,6 +1168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
 
     list.querySelectorAll('.episode-card').forEach(card => {
+      card.addEventListener('pointerdown', () => prefetchResolve(item, seasonNumber, Number(card.dataset.ep)));
       card.addEventListener('click', (e) => {
         const dlBtn = e.target.closest('.download-ep-btn');
         if (dlBtn) {
@@ -1303,17 +1210,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Hero banner always mirrors the first catalog entry (see updateHeroSpotlight)
+  // Hero banner mirrors the first item of the first home rail (see updateHeroSpotlight)
   document.getElementById('heroPlayBtn').addEventListener('click', () => {
-    const item = CATALOG_DATA[0];
-    const firstSeason = item.isSeries && item.seasons && item.seasons[0];
-    const firstEp = firstSeason && firstSeason.episodes[0];
-    if (firstEp) playMedia(item, firstSeason.seasonNumber, firstEp.epNum, `Season ${firstSeason.seasonNumber} · Episode ${firstEp.epNum}`);
-    else playMedia(item);
+    if (!heroItem) { showToast('Catalog is still loading'); return; }
+    openDetailModal(heroItem);
+    document.getElementById('detailPlayNowBtn').click();
   });
 
   document.getElementById('heroDownloadBtn').addEventListener('click', () => {
-    triggerMultiThreadDownload(CATALOG_DATA[0]);
+    if (!heroItem) { showToast('Catalog is still loading'); return; }
+    openDetailModal(heroItem);
+    document.getElementById('detailDownloadBtn').click();
   });
 
   // ==========================================================================
@@ -1341,6 +1248,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('qualityLabel').textContent = current ? current.quality : 'Auto';
 
     const isHls = data.videoUrl.includes('.m3u8') || data.isHls;
+    // HLS and subtitles go through the CORS-enabled proxy; direct files keep a plain request
+    if (isHls) videoPlayer.crossOrigin = 'anonymous'; else videoPlayer.removeAttribute('crossorigin');
+    videoPlayer.querySelectorAll('track').forEach(t => t.remove());
+    const cur = (data.sources || []).find(v => v.url === data.videoUrl);
+    ((cur && cur.subtitles) || []).filter(t => /\.vtt(\?|$)/i.test(t.url) && isHls).forEach((t, i) => {
+      const el = document.createElement('track');
+      el.kind = 'subtitles';
+      el.label = t.lang;
+      el.src = proxied(t.url, data.referer);
+      videoPlayer.appendChild(el);
+    });
+    if (data.startAt) videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.currentTime = data.startAt; }, { once: true });
     const tryBackup = () => {
       if (data.backupUrl && !data._backupTried) {
         data._backupTried = true;
@@ -1357,7 +1276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lowLatencyMode: true,
         backBufferLength: 60
       });
-      hlsInstance.loadSource(proxied(data.videoUrl));
+      hlsInstance.loadSource(proxied(data.videoUrl, data.referer));
       hlsInstance.attachMedia(videoPlayer);
       hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
         videoPlayer.play().catch(() => {});
@@ -1369,7 +1288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     } else if (isHls && videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-      videoPlayer.src = proxied(data.videoUrl);
+      videoPlayer.src = proxied(data.videoUrl, data.referer);
       videoPlayer.play().catch(() => {});
     } else {
       videoPlayer.src = data.videoUrl;
@@ -1384,17 +1303,31 @@ document.addEventListener('DOMContentLoaded', () => {
   function switchPlaybackSource(src) {
     if (!activePlayback) return;
     const resumeAt = videoPlayer.currentTime || 0;
-    launchVideoPlayer(Object.assign({}, activePlayback, { videoUrl: src.url, isHls: src.hls }));
-    videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.currentTime = resumeAt; }, { once: true });
+    launchVideoPlayer(Object.assign({}, activePlayback, { videoUrl: src.url, isHls: src.hls, referer: src.referer || activePlayback.referer, startAt: resumeAt, _viaProxy: false }));
   }
+
+  videoPlayer.addEventListener('timeupdate', () => saveProgress(false));
+  videoPlayer.addEventListener('pause', () => saveProgress(true));
 
   videoPlayer.addEventListener('error', () => {
     if (!playerModal.classList.contains('open') || !videoPlayer.getAttribute('src')) return;
+    if (activePlayback && !activePlayback._viaProxy && !/\/api\/proxy/.test(videoPlayer.src)) {
+      // The phone may not be on BDIX while the PC is: retry through the backend once.
+      activePlayback._viaProxy = true;
+      const resumeAt = videoPlayer.currentTime || activePlayback.startAt || 0;
+      videoPlayer.removeAttribute('crossorigin');
+      videoPlayer.src = proxied(activePlayback.videoUrl, activePlayback.referer);
+      videoPlayer.addEventListener('loadedmetadata', () => { videoPlayer.currentTime = resumeAt; }, { once: true });
+      videoPlayer.play().catch(() => {});
+      showToast('Direct link unreachable — streaming through the backend');
+      return;
+    }
     const mkv = /\.mkv(\?|$)/i.test(videoPlayer.src);
     showToast(mkv ? 'This device cannot play MKV in-app — use Download, then play the file' : 'Playback error — try another quality');
   });
 
   document.getElementById('exitPlayerBtn').addEventListener('click', () => {
+    saveProgress(true);
     videoPlayer.pause();
     if (hlsInstance) {
       hlsInstance.destroy();
@@ -1402,6 +1335,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     videoPlayer.src = '';
     playerModal.classList.remove('open');
+    activePlayback = null;
+    renderContinueWatching();
     if (isLandscapeMode) toggleRotationMode();
   });
 
@@ -1719,18 +1654,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // 10. Dynamic Catalog Loader (Phase 4 Integration)
   // ==========================================================================
   function loadDynamicCatalog() {
-    fetch(apiUrl('/api/catalog?category=all'))
-      .then(r => r.json())
+    loadHome().catch(() => false);
+    fetchJson('/api/catalog?category=all', null, 20000)
       .then(data => {
         if (data.success && data.items && data.items.length > 0) {
+          register(data.items);
           applyCatalogData(data.items);
         } else {
           loadLocalCatalogJson();
         }
       })
-      .catch(() => {
-        loadLocalCatalogJson();
-      });
+      .catch(() => loadLocalCatalogJson());
   }
 
   function loadLocalCatalogJson() {
@@ -1749,8 +1683,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyCatalogData(items) {
     if (Array.isArray(items) && items.length > 0) {
       CATALOG_DATA = items;
+      register(items);
       activeMediaItem = CATALOG_DATA[0];
-      updateHeroSpotlight(CATALOG_DATA[0]);
+      if (!document.getElementById('dynamicRails').children.length) {
+        updateHeroSpotlight(CATALOG_DATA[0]);
+        renderHomeRails([{ id: 'catalog', title: 'Featured', items: CATALOG_DATA.slice(0, 20) }]);
+      }
       renderAllSections();
       if (currentActiveTab === 'explore') {
         filterCatalog(currentActiveCategory);
@@ -1760,6 +1698,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateHeroSpotlight(item) {
     if (!item) return;
+    heroItem = item;
     const heroBackdrop = document.getElementById('heroBackdropImg');
     const heroTitle = document.getElementById('heroTitle');
     const heroQuality = document.getElementById('heroQualityTag');
@@ -1952,6 +1891,16 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchBdixStatus();
   fetchDynamicLiveTvChannels();
   initDeveloperWelcomeModal();
+
+  // First run inside the APK: there is no same-origin backend, so ask for the server address.
+  (function firstRunSetup() {
+    let saved = '';
+    try { saved = localStorage.getItem('ashtube_api_base') || ''; } catch (e) { /* storage unavailable */ }
+    if (!location.protocol.startsWith('http') && !saved) {
+      switchTab('livetv');
+      setTimeout(() => showToast('Enter your AshTube server address below, then tap Save'), 600);
+    }
+  })();
   showToast('AshTube Ready · BDIX Live TV & Peering Scanner Active');
 
 });
