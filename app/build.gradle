@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "com.ashtube.app"
-        minSdk 24
+        minSdk 21
         targetSdk 34
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -19,12 +19,30 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            def ksFile = file("../release.keystore")
+            if (ksFile.exists()) {
+                storeFile ksFile
+                storePassword "ashtube2026"
+                keyAlias "ashtube"
+                keyPassword "ashtube2026"
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug // Enables direct installation of release builds
+            minifyEnabled false
+            shrinkResources false
+            def ksFile = file("../release.keystore")
+            if (ksFile.exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
         }
         debug {
             minifyEnabled false
